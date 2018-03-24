@@ -1,8 +1,12 @@
+#include<utility>
+#include<cstddef>
 
 //THis is the Shape Base class that Circle, Rectangle and Regular Polygon Inherit from
 class Shape
 {
-
+private:
+pair<int,int> bound_Box;  //bound_Box(width,height)
+pair<int, int> current_Point; //current_Point(x,y)
 
 public:
 
