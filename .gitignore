@@ -1,2 +1,4 @@
 catch.hpp
 *.gch
+*.o
+*.out

@@ -2,25 +2,31 @@
 #define SHAPE_H
 
 #include "consts.h"
-#include<utility>
-#include<cstddef>
+#include <cstddef>
+#include <string>
+#include <utility>
 
-//THis is the Shape Base class that Circle, Rectangle and Regular Polygon Inherit from
-namespace cps{
-  class Shape
-  {
-  private:
-    std::pair<int,int> bound_Box;  //bound_Box(width,height)
-    std::pair<int, int> current_Point; //current_Point(x,y)
+// This is the Shape Base class that Circle, Rectangle and Regular Polygon
+// Inherit from
+namespace cps {
+class Shape {
+public:
+  using BoundBoxType = std::pair<int, int>;
+  using PointType = std::pair<int, int>;
 
-  public:
-    virtual void Rotated(Shape shape, int rotation_Angle);
-    virtual void Scaled(Shape shape, double x_Scale, double y_Scale);
-    void Layered();
-    void Vertical();
-    void Horizontal();
+private:
+  BoundBoxType bound_Box;  // bound_Box(width,height)
+  PointType current_Point; // current_Point(x,y)
 
-  };
-}
+public:
+  virtual void rotate(int rotation_Angle);
+  virtual void scale(double x_Scale, double y_Scale);
+  virtual void vertical();
+  virtual void horizontal();
+  void layer();
+
+  virtual std::string to_postscript();
+};
+} // namespace cps
 
 #endif
