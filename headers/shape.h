@@ -29,6 +29,9 @@ public:
   void layer();
 
   virtual std::string toPostScript() = 0;
+
+  BoundBoxType getBoundBox();
+  PointType getCurrentPoint();
 };
 } // namespace cps
 

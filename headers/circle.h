@@ -28,6 +28,9 @@ public:
   virtual void horizontal() override;
   virtual void vertical() override;
   virtual std::string toPostScript() override;
+
+public:
+  int getRadius();
 };
 } // namespace cps
 #endif
