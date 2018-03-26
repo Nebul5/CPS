@@ -35,5 +35,8 @@ public:
   unsigned int getNumberOfSides();
   unsigned int getSideLength();
 };
+
+Polygon getPolygon(Shape::PointType current_point, unsigned int number_sides,
+                   unsigned int side_length);
 } // namespace cps
 #endif

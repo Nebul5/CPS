@@ -33,5 +33,6 @@ public:
 public:
   int getRadius();
 };
+Circle getCircle(Shape::PointType current_point, unsigned int radius);
 } // namespace cps
 #endif

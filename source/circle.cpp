@@ -5,6 +5,7 @@ using cps::Circle;
 #include <string>
 using std::string;
 #include <utility>
+using std::make_pair;
 using std::pair;
 
 Circle::Circle(unsigned int radius, BoundBoxType bound_box,
@@ -25,3 +26,10 @@ std::string Circle::toPostScript() {
 }
 
 int Circle::getRadius() { return radius; }
+
+Circle cps::getCircle(Shape::PointType current_point, unsigned int radius) {
+  auto bound_box =
+      make_pair<unsigned int, unsigned int>(radius * 2, radius * 2);
+
+  return Circle(radius, bound_box, current_point);
+}
