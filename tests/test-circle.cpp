@@ -10,14 +10,14 @@ using std::pair;
 
 TEST_CASE("test circle shape") {
   SECTION("constructors behave") {
-    auto radius = 5;
-    auto bound_box = make_pair(10, 10);
-    auto current_point = make_pair(0, 0);
+    unsigned int radius = 5;
+    pair<unsigned int, unsigned int> bound_box = make_pair(10, 10);
+    pair<unsigned int, unsigned int> current_point = make_pair(0, 0);
 
-    auto test_circ = Circle(radius, bound_box, current_point);
+    auto test_circle = Circle(radius, bound_box, current_point);
 
-    REQUIRE(test_circ.getRadius() == radius);
-    REQUIRE(test_circ.getBoundBox() == bound_box);
-    REQUIRE(test_circ.getCurrentPoint() == current_point);
+    REQUIRE(test_circle.getRadius() == radius);
+    REQUIRE(test_circle.getBoundBox() == bound_box);
+    REQUIRE(test_circle.getCurrentPoint() == current_point);
   }
 }

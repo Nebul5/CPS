@@ -1,8 +1,9 @@
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
 #include "shape.h"
-// cps::BoundBoxType
-// cps::PointType
+// cps::Shape
+// Shape::BoundBoxType
+// Shape::PointType
 
 #include <string>
 // std::string
@@ -16,21 +17,22 @@ public:
   using Shape::PointType;
 
 private:
-  int width;
-  int height;
+  unsigned int width;
+  unsigned int height;
 
 public:
   Rectangle() = default;
-  Rectangle(BoundBoxType bound_Box, PointType current_Point);
-  virtual void rotate(size_t rotation_angle) override;
+  ~Rectangle() = default;
+  Rectangle(BoundBoxType bound_box, PointType current_Point);
+  virtual void rotate(unsigned int rotation_angle) override;
   virtual void scale(double x_scale, double y_scale) override;
   virtual void horizontal() override;
   virtual void vertical() override;
   virtual std::string toPostScript() override;
 
 public:
-  int getWidth();
-  int getHeight();
+  unsigned int getWidth();
+  unsigned int getHeight();
 };
 } // namespace cps
 #endif

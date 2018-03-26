@@ -11,7 +11,7 @@ Rectangle::Rectangle(BoundBoxType bound_box, PointType current_point)
     : width(bound_box.first), height(bound_box.second),
       Shape(bound_box, current_point) {}
 
-void Rectangle::rotate(size_t rotation_angle) {}
+void Rectangle::rotate(unsigned int rotation_angle) {}
 
 void Rectangle::scale(double x_scale, double y_scale) {}
 
@@ -24,5 +24,5 @@ string Rectangle::toPostScript() {
   return rv;
 }
 
-int Rectangle::getWidth() { return width; }
-int Rectangle::getHeight() { return height; }
+unsigned int Rectangle::getWidth() { return width; }
+unsigned int Rectangle::getHeight() { return height; }

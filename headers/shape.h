@@ -2,7 +2,6 @@
 #define SHAPE_H
 
 #include "consts.h"
-#include <cstddef>
 #include <string>
 // std::string
 #include <utility>
@@ -13,16 +12,17 @@
 namespace cps {
 class Shape {
 public:
-  using BoundBoxType = std::pair<int, int>;
-  using PointType = std::pair<int, int>;
+  using BoundBoxType = std::pair<unsigned int, unsigned int>;
+  using PointType = std::pair<unsigned int, unsigned int>;
 
 private:
   BoundBoxType bound_box;  // bound_Box(width,height)
   PointType current_point; // current_Point(x,y)
 public:
   Shape() = default;
+  ~Shape() = default;
   Shape(BoundBoxType bound_box, PointType current_point);
-  virtual void rotate(size_t rotation_Angle) = 0;
+  virtual void rotate(unsigned int rotation_Angle) = 0;
   virtual void scale(double x_Scale, double y_Scale) = 0;
   virtual void vertical() = 0;
   virtual void horizontal() = 0;
