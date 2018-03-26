@@ -10,7 +10,7 @@ using std::pair;
 Circle::Circle(int radius, BoundBoxType bound_box, PointType current_point)
     : radius(radius), Shape(bound_box, current_point) {}
 
-void Circle::rotate(int rotation_angle) {}
+void Circle::rotate(size_t rotation_angle) {}
 
 void Circle::scale(double x_scale, double y_scale) {}
 

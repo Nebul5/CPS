@@ -22,10 +22,15 @@ private:
 public:
   Rectangle() = default;
   Rectangle(BoundBoxType bound_Box, PointType current_Point);
-  virtual void rotate(int rotation_angle) override;
+  virtual void rotate(size_t rotation_angle) override;
   virtual void scale(double x_scale, double y_scale) override;
   virtual void horizontal() override;
   virtual void vertical() override;
+  virtual std::string toPostScript() override;
+
+public:
+  int getWidth();
+  int getHeight();
 };
 } // namespace cps
 #endif

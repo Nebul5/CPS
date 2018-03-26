@@ -22,7 +22,7 @@ private:
 public:
   Shape() = default;
   Shape(BoundBoxType bound_box, PointType current_point);
-  virtual void rotate(int rotation_Angle) = 0;
+  virtual void rotate(size_t rotation_Angle) = 0;
   virtual void scale(double x_Scale, double y_Scale) = 0;
   virtual void vertical() = 0;
   virtual void horizontal() = 0;

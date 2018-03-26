@@ -7,6 +7,7 @@ using cps::Circle;
 #include <utility>
 using std::make_pair;
 using std::pair;
+
 TEST_CASE("test circle shape") {
   SECTION("constructors behave") {
     auto radius = 5;

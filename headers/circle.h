@@ -23,7 +23,7 @@ private:
 public:
   Circle() = default;
   Circle(int radius, BoundBoxType bound_box, PointType current_point);
-  virtual void rotate(int rotation_angle) override;
+  virtual void rotate(size_t rotation_angle) override;
   virtual void scale(double x_scale, double y_scale) override;
   virtual void horizontal() override;
   virtual void vertical() override;
