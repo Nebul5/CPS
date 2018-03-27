@@ -1,0 +1,5 @@
+All blocks of code are enclosed within curly braces with the first brace on the same line.
+
+The first letter of every word in names of classes are capitalized, whitespace is omitted.
+
+Member functions of classes use camelCase.
