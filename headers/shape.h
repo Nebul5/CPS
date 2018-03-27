@@ -33,6 +33,25 @@ public:
   BoundBoxType getBoundBox();
   PointType getCurrentPoint();
 };
+
+// Stores a syntax tree representing a postscript program
+struct SyntaxTree {
+  // TODO
+};
+
+// Stores a postscript program whose source is a string written in standard C++
+class Program {
+private:
+  SyntaxTree AST;
+
+public:
+  Program(std::string source);
+  Program(const Program &p);
+
+  std::string toString();
+
+  void interpret(std::string source);
+};
 } // namespace cps
 
 #endif
