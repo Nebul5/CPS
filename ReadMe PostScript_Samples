@@ -1,0 +1,9 @@
+Post Script tests
+1. A simple circle built from a given center point and radius.
+2. A simple rectangle built from a given center point and radius.
+3. A Regular Hexagon built from a given Side length and a given vertice
+4. An Equilateral Triangle rotated 45 degrees
+5. A circle with the vertical dimension scaled by 0.5 to create a horizontal elipse
+6. Layer test: Circle inside an equilateral Triangle inside a regular Hexagon
+7. Vertical test:
+8. Horizontal Test:
