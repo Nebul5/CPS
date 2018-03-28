@@ -1,2 +1,95 @@
+%!PS-Adobe-3.0
+
+%ideas:  the cursor location is outside of the shape procedures
+% No logic only drawing in PostScript; figure out all the logic in C++ or during the Interpretation process keep PostScript Simple
+
+
+%%Pages: 5
+%%Page: 1 1 % circle demo
+
+/circle {
 newpath 
-0 0 30 0 360 arc closepath stroke showpage
+30 0 360 arc  % Radius start_ang Final_ang
+stroke } def 
+
+/x 300 def
+/y 300 def
+
+x y circle
+ showpage
+
+ %%Page: 2 2 % rectangle demo
+ % assumes a cursor starting position is in the center of the shape
+/h 50 def
+/w 200 def
+ /rectangle {
+gsave
+newpath % start in top right corner with drawing
+ moveto
+w 2 div h 2 div translate
+-1 w mul 0 rlineto
+0 -1 h mul rlineto   %Is there a better way to do -h or h steps down?
+w 0 rlineto
+closepath
+stroke
+grestore
+ } def
+
+300 400 rectangle
+showpage
+
+ %%Page: 3 3 % polygon demo with hexagon demo still needs to be adjusted to have the correct placement relative to Bounding Box
+
+/side 100 def
+/n 6 def
+/ExtAngle 360 n div def
+ /polygon{
+ gsave
+newpath
+moveto
+n 1 sub{
+side 0 rlineto % add line
+ExtAngle rotate
+} repeat
+closepath 
+stroke
+grestore
+ } def
+
+300 400 polygon
+showpage
+
+%%Page: 4 4 % A Triangle with  45 degree rotation applied
+/side 100 def
+/n 3 def
+/ExtAngle 360 n div def
+ /polygon{
+ gsave
+newpath
+moveto
+rotate
+n 1 sub{
+side 0 rlineto % add line
+ExtAngle rotate
+} repeat
+closepath 
+stroke
+grestore
+ } def
+
+ 45 300 400 polygon
+showpage
+
+
+%%Page: 5 5 % A circle with scale so that it is a horizontal ellipse
+
+/circle {
+newpath 
+50 0 360 arc  % Radius start_ang Final_ang
+stroke } def 
+
+/x 300 def
+/y 300 def
+1 0.5 scale
+x y circle
+ showpage
