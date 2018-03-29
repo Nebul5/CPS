@@ -28,6 +28,10 @@ void Shape::Horizontal() {
 	// TODO
 }
 
+float max_Dimension(){
+
+}
+
 // Program constructor, takes a string of source code
 Program::Program(std::string source) { 
 	interpret(source);
