@@ -93,3 +93,77 @@ stroke } def
 1 0.5 scale
 x y circle
  showpage
+
+%%Page: 6 6 % An Equilateral triangle with its bounding box drawn around it
+
+/side 100 def
+/n 3 def
+/ExtAngle 360 n div def
+ /polygon{
+ gsave
+newpath
+moveto
+n 1 sub{
+side 0 rlineto % add line
+ExtAngle rotate
+} repeat
+closepath 
+stroke
+grestore
+ } def
+
+250 356.697 polygon
+
+/h 86.6 def
+/w 100 def
+ /rectangle {
+gsave
+newpath % start in top right corner with drawing
+ moveto
+%w 2 div h 2 div translate
+-1 w mul 0 rlineto
+0 -1 h mul rlineto   %Is there a better way to do -h or h steps down?
+w 0 rlineto
+closepath
+stroke
+grestore
+ } def
+
+350 443.3 rectangle
+showpage
+
+
+ %%Page: 7 7 % A circle with scale so that it is a horizontal ellipse
+
+/x 300 def
+/y 300 def
+
+ /circle {
+newpath 
+50 0 360 arc  % Radius start_ang Final_ang
+stroke } def 
+
+x y circle
+
+/side 100 def
+/n 3 def
+/ExtAngle 360 n div def
+ /polygon{
+ gsave
+newpath
+moveto
+n 1 sub{
+side 0 rlineto % add line
+ExtAngle rotate
+} repeat
+closepath 
+stroke
+grestore
+ } def
+
+/pi 3.14159265 def
+
+/apothem s 2 div | pi n div tan div def %  apothem = (s/2)/tan(pi/n);
+x side 2 div sub y apothem sub polygon % draw the triangle
+
+showpage
