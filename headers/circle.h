@@ -19,6 +19,7 @@ public:
 
 private:
   unsigned int radius;
+  const std::string str_radius = "radius";
 
 public:
   Circle() = default;

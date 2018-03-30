@@ -1,3 +1,6 @@
+#include <iostream>
+using std::cout;
+using std::endl;
 #include "../headers/shape.h"
 using cps::Shape;
 #include "../headers/circle.h"
@@ -19,5 +22,7 @@ TEST_CASE("test circle shape") {
     REQUIRE(test_circle.getRadius() == radius);
     REQUIRE(test_circle.getBoundBox() == bound_box);
     REQUIRE(test_circle.getCurrentPoint() == current_point);
+    cout << "getting circle post script" << endl;
+    cout << test_circle.toPostScript() << endl;
   }
 }

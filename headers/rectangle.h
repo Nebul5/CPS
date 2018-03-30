@@ -19,6 +19,8 @@ public:
 private:
   unsigned int width;
   unsigned int height;
+  const std::string str_height = "height";
+  const std::string str_width = "width";
 
 public:
   Rectangle() = default;

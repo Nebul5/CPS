@@ -2,8 +2,11 @@
 using cps::Shape;
 #include "../headers/circle.h"
 using cps::Circle;
+#include "../headers/consts.h"
+using cps::DRAW_CIRCLE;
 #include <string>
 using std::string;
+using std::to_string;
 #include <utility>
 using std::make_pair;
 using std::pair;
@@ -21,8 +24,10 @@ void Circle::horizontal() {}
 void Circle::vertical() {}
 
 std::string Circle::toPostScript() {
-  string rv = "to define";
-  return rv;
+  string ps_circle = DRAW_CIRCLE;
+  ps_circle.replace(ps_circle.find(str_radius), str_radius.length(),
+                    to_string(radius));
+  return ps_circle;
 }
 
 int Circle::getRadius() { return radius; }

@@ -19,6 +19,8 @@ public:
 private:
   unsigned int number_sides;
   unsigned int side_length;
+  const std::string number_sides_str = "number_sides";
+  const std::string side_length_str = "side_length";
 
 public:
   Polygon() = default;

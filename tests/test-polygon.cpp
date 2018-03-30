@@ -27,6 +27,8 @@ TEST_CASE("test polygon shape") {
     REQUIRE(test_polygon.getNumberOfSides() == number_sides);
     REQUIRE(test_polygon.getBoundBox() == bound_box);
     REQUIRE(test_polygon.getCurrentPoint() == current_point);
+    cout << " getting polygon post script " << endl;
+    cout << test_polygon.toPostScript() << endl;
   }
   SECTION("getPolygon function behaves") {
     pair<unsigned int, unsigned int> current_point = make_pair(0, 0);

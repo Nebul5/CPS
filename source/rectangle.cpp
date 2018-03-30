@@ -2,8 +2,12 @@
 using cps::Shape;
 #include "../headers/rectangle.h"
 using cps::Rectangle;
+#include "../headers/consts.h"
+using cps::DRAW_RECTANGLE;
+using cps::INCH;
 #include <string>
 using std::string;
+using std::to_string;
 #include <utility>
 using std::pair;
 
@@ -20,8 +24,13 @@ void Rectangle::horizontal() {}
 void Rectangle::vertical() {}
 
 string Rectangle::toPostScript() {
-  auto rv = "to define";
-  return rv;
+  string ps_rectangle = DRAW_RECTANGLE;
+  ps_rectangle.replace(ps_rectangle.find(str_height), str_height.length(),
+                       to_string(height));
+  ps_rectangle.replace(ps_rectangle.find(str_width), str_width.length(),
+                       to_string(width));
+
+  return ps_rectangle;
 }
 
 unsigned int Rectangle::getWidth() { return width; }

@@ -18,7 +18,11 @@ Program::Program(const Program &p) { this->AST = p.AST; }
 // toString, returns a string representation of the program that is a valid
 // postscript program
 std::string Program::toString() {
-  // TODO traverse AST
+  // NOTE I don't think AST is a relevant
+  // implementation concept for this project
+  // there's no recursive grammer for this 'language'
+  // except for compound shapes. but it's essentially just iteratively adding
+  // each shape's postscript to a file.
   return "newpath \n 0 0 5 0 360 arc closepath stroke showpage";
 }
 
