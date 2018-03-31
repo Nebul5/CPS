@@ -17,14 +17,16 @@ public:
 private:
   BoundBoxType bound_box;  // bound_Box(width,height)
   PointType current_point; // current_Point(x,y)
+  std::string scale_str = "1 1 scale";
+
 public:
   Shape() = default;
   ~Shape() = default;
   Shape(BoundBoxType bound_box, PointType current_point);
-  virtual void rotate(unsigned int rotation_Angle) = 0;
-  virtual void scale(double x_Scale, double y_Scale) = 0;
-  virtual void vertical() = 0;
-  virtual void horizontal() = 0;
+  void scale(double x_Scale, double y_Scale);
+  virtual void rotate(unsigned int rotation_Angle);
+  virtual void vertical();
+  virtual void horizontal();
   void layer();
 
   virtual std::string toPostScript() = 0;

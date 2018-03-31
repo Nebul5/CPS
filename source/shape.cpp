@@ -1,11 +1,20 @@
 #include "../headers/shape.h"
 using cps::Program;
 using cps::Shape;
+#include <string>
+using std::string;
+using std::to_string;
 
 Shape::Shape(BoundBoxType bound_box, PointType current_point)
     : bound_box(bound_box), current_point(current_point) {}
 
 void Shape::layer() {}
+void Shape::scale(double x_scale, double y_scale) {
+  scale_str = to_string(x_scale) + " " + to_string(y_scale) + " scale\n";
+}
+void Shape::rotate(unsigned int rotation_Angle) {}
+void Shape::vertical() {}
+void Shape::horizontal() {}
 
 Shape::BoundBoxType Shape::getBoundBox() { return bound_box; }
 Shape::PointType Shape::getCurrentPoint() { return current_point; }

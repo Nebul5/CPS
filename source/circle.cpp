@@ -17,8 +17,6 @@ Circle::Circle(unsigned int radius, BoundBoxType bound_box,
 
 void Circle::rotate(unsigned int rotation_angle) {}
 
-void Circle::scale(double x_scale, double y_scale) {}
-
 void Circle::horizontal() {}
 
 void Circle::vertical() {}

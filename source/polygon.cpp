@@ -21,8 +21,6 @@ Polygon::Polygon(BoundBoxType bound_box, PointType current_point,
 
 void Polygon::rotate(unsigned int rotation_angle) {}
 
-void Polygon::scale(double x_scale, double y_scale) {}
-
 void Polygon::horizontal() {}
 
 void Polygon::vertical() {}

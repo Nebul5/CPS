@@ -28,7 +28,6 @@ public:
   Polygon(BoundBoxType bound_Box, PointType current_Point,
           unsigned int number_sides, unsigned int side_length);
   virtual void rotate(unsigned int rotation_angle) override;
-  virtual void scale(double x_scale, double y_scale) override;
   virtual void horizontal() override;
   virtual void vertical() override;
   virtual std::string toPostScript() override;

@@ -17,8 +17,6 @@ Rectangle::Rectangle(BoundBoxType bound_box, PointType current_point)
 
 void Rectangle::rotate(unsigned int rotation_angle) {}
 
-void Rectangle::scale(double x_scale, double y_scale) {}
-
 void Rectangle::horizontal() {}
 
 void Rectangle::vertical() {}
