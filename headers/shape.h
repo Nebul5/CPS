@@ -2,6 +2,8 @@
 #define SHAPE_H
 
 #include <string>
+#include<initializer_list>
+using std::initializer_list;
 // std::string
 #include <utility>
 // std::pair
@@ -27,14 +29,19 @@ public:
   Shape(BoundBoxType bound_box, PointType current_point);
   void scale(double x_Scale, double y_Scale);
   virtual void rotate(unsigned int rotation_Angle);
-  virtual void vertical();
+  virtual void vertical(const initializer_list<Shape> & list); 
   virtual void horizontal();
   void layer();
+
+pair<int, int> max_Dimension(const initializer_list<Shape> &list)
+
 
   virtual std::string toPostScript() = 0;
 
   BoundBoxType getBoundBox();
   PointType getCurrentPoint();
+   BoundBoxType getBoundBox()const;
+  PointType getCurrentPoint()const;
 };
 
 // Stores a syntax tree representing a postscript program

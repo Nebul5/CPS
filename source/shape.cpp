@@ -13,11 +13,30 @@ void Shape::scale(double x_scale, double y_scale) {
   scale_str = to_string(x_scale) + " " + to_string(y_scale) + " scale\n";
 }
 void Shape::rotate(unsigned int rotation_Angle) {}
-void Shape::vertical() {}
+void Shape::vertical(const initializer_list<Shape> &list) {
+bound_box = maxDimensions(list);
+
+}
 void Shape::horizontal() {}
 
 Shape::BoundBoxType Shape::getBoundBox() { return bound_box; }
 Shape::PointType Shape::getCurrentPoint() { return current_point; }
+Shape::BoundBoxType Shape::getBoundBox() const { return bound_box; }
+Shape::PointType Shape::getCurrentPoint() const { return current_point; }
+
+pair<int, int> Shape::max_Dimension(const initializer_list<Shape> &list)
+{
+  pair<int, int> maxDimensions = std::make_pair(0, 0);
+  for(auto &itm : list)
+  {
+    auto b_Box = itm.getBoundBox();
+    if (maxDimensions.first < b_Box.first)
+      maxDimensions.first = b_Box.first;
+     if (maxDimensions.second < b_Box.second)
+      maxDimensions.second = b_Box.second;
+  }
+  return maxDimensions ;
+}
 
 // Program constructor, takes a string of source code
 Program::Program(std::string source) { interpret(source); }
