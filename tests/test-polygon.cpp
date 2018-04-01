@@ -39,5 +39,53 @@ TEST_CASE("test polygon shape") {
     auto bound_box = calculated_polygon.getBoundBox();
     cout << "bound box width is " << bound_box.first << " and height is "
          << bound_box.second << endl;
+
+//These Conditions Match those used for the drawing in test_rect.ps and test_poly.ps
+    unsigned int n1 = 3;//smallest case
+    unsigned int n2 = 7;// odd case
+    unsigned int n3 = 8;// mod 4 ==0 case
+    unsigned int n4 = 10; // mod 2 but not mod 4 case
+    unsigned int side = 100;
+    current_point = make_pair(300,300);
+
+    auto triangle= getPolygon(current_point, n1, side);
+    auto septagon= getPolygon(current_point, n2, side);
+    auto octagon= getPolygon(current_point, n3, side);
+    auto decagon= getPolygon(current_point, n4, side);
+
+    //Test the Bounding Boxes
+    auto tbox = triangle.getBoundBox();
+    REQUIRE(tbox.first == 100);
+    REQUIRE(tbox.second == 86);
+
+    auto sbox = septagon.getBoundBox();
+    REQUIRE(sbox.first == 224);
+    REQUIRE(sbox.second == 219);
+
+    auto obox = octagon.getBoundBox();
+    REQUIRE(obox.first == 241);
+    REQUIRE(obox.second == 241);
+
+    auto dbox = decagon.getBoundBox();
+    REQUIRE(dbox.first == 323);
+    REQUIRE(dbox.second == 307);
+
+
+    //test the Starting Points this is the left end of the bottom side of the polygon (where the postscript drawing begins)
+    auto tstart = triangle.starting_Point(current_point,n1,side);
+    REQUIRE(tstart.first == 250);
+    REQUIRE(tstart.second == 257);
+
+    auto sstart = septagon.starting_Point(current_point,n2,side);
+    REQUIRE(sstart.first == 250);
+    REQUIRE(sstart.second == 191);
+
+    auto ostart = octagon.starting_Point(current_point,n3,side);
+    REQUIRE(ostart.first == 250);
+    REQUIRE(ostart.second == 179);
+
+    auto dstart = decagon.starting_Point(current_point,n4,side);
+    REQUIRE(dstart.first == 250);
+    REQUIRE(dstart.second == 146);
   }
 }

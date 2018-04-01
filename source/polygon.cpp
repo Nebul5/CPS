@@ -49,10 +49,63 @@ bool Polygon::operator==(const Polygon &rhs) const {
 unsigned int Polygon::getNumberOfSides() { return number_sides; }
 unsigned int Polygon::getSideLength() { return side_length; }
 
-Polygon cps::getPolygon(Shape::PointType current_point,
+/*Polygon cps::getPolygon(Shape::PointType current_point,
                         unsigned int number_sides, unsigned int side_length) {
   auto denominator = sin(PI / double(number_sides));
   unsigned int radius = abs(ceil(double(side_length) / denominator));
   auto bound_box = make_pair(radius, radius);
   return Polygon(bound_box, current_point, number_sides, side_length);
+}*/
+
+/* This provide the correct Bounding Box for Regular Polygons that are not rotated. I have tested this with drawing works in all cases (When the Bounding Box is allowed to be a float)
+It comes from his hint in the assingments. Again this may not match perfectly with an integer bounding box */
+pair<int,int> make_Bounding_Box(unsigned int number_sides, unsigned int side_length){
+
+float pi = 3.14159265;
+  int height;
+  int width;
+
+  if (number_sides % 2 == 1) {
+    height = side_length*(1 + cos(pi / number_sides)) / (2 * sin(pi / number_sides));
+    width = side_length* sin(pi * (number_sides - 1) / (2 * number_sides)) / sin(pi / number_sides);
+  }
+
+  else if(number_sides % 2 == 0 && number_sides % 4 != 0) {
+    height = side_length* cos(pi / n) / sin(pi / number_sides);
+    width = side_length / sin(pi / number_sides);
+  }
+
+  else {
+    height = side_length* cos(pi / number_sides) / sin(pi / number_sides);
+    width = side_length* cos(pi / number_sides) / sin(pi / number_sides);
+  }
+   auto box = make_pair(width, height);
+   return box;
+}
+
+
+Polygon cps::getPolygon(Shape::PointType current_point,
+                        unsigned int number_sides, unsigned int side_length) {
+  
+ auto bound_box = make_Bounding_Box(number_sides, side_length);
+  return Polygon(bound_box, current_point, number_sides, side_length);
+}
+
+
+
+/* This function Takes the current_point and returns the Point from which to start drawing the Regular Polygon so that A side is always centered horizontally below the current point
+    This Only works for non-Rotated Shapes*/
+std::pair<int, int> starting_Point(Shape::PointType current_point, unsigned int side_length, unsigned int number_sides) {  
+  pair<int, int> point;
+  double pi = 3.14159265;
+  double apothem = (side_length / 2) / tan(pi / number_sides);
+  if (number_sides % 2 == 1)
+  {
+    pair<int, int> box = make_Bounding_Box(number_sides, side_length);
+    apothem = box.second / 2;
+  }
+  point.first = (int)(current_point.first - (side_length / 2));
+  point.second = (int)(current_point.second - apothem);
+
+  return point;
 }

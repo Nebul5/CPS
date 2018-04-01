@@ -36,6 +36,8 @@ public:
 public:
   unsigned int getNumberOfSides();
   unsigned int getSideLength();
+  pair<int,int> make_Bounding_Box(unsigned int number_sides, unsigned int side_length);
+  pair<int,int> starting_Point(Shape::PointType current_point, int side_length, int number_sides);
 };
 
 Polygon getPolygon(Shape::PointType current_point, unsigned int number_sides,
