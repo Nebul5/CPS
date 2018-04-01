@@ -25,6 +25,7 @@ private:
 public:
   Polygon() = default;
   ~Polygon() = default;
+  bool operator==(const Polygon &rhs) const;
   Polygon(BoundBoxType bound_Box, PointType current_Point,
           unsigned int number_sides, unsigned int side_length);
   virtual void rotate(unsigned int rotation_angle) override;

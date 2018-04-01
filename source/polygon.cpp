@@ -27,11 +27,23 @@ void Polygon::vertical() {}
 
 string Polygon::toPostScript() {
   string ps_polygon = DRAW_POLYGON;
+  ps_polygon.replace(ps_polygon.find(x_coord_str), x_coord_str.length(),
+                     to_string(current_point.first));
+  ps_polygon.replace(ps_polygon.find(y_coord_str), y_coord_str.length(),
+                     to_string(current_point.second));
   ps_polygon.replace(ps_polygon.find(number_sides_str),
                      number_sides_str.length(), to_string(number_sides));
   ps_polygon.replace(ps_polygon.find(side_length_str), side_length_str.length(),
                      to_string(side_length));
   return ps_polygon;
+}
+
+bool Polygon::operator==(const Polygon &rhs) const {
+  if (bound_box != rhs.bound_box || current_point != rhs.current_point ||
+      number_sides != rhs.number_sides || side_length != rhs.side_length) {
+    return false;
+  }
+  return true;
 }
 
 unsigned int Polygon::getNumberOfSides() { return number_sides; }

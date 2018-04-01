@@ -23,6 +23,10 @@ void Circle::vertical() {}
 
 std::string Circle::toPostScript() {
   string ps_circle = DRAW_CIRCLE;
+  ps_circle.replace(ps_circle.find(x_coord_str), x_coord_str.length(),
+                    to_string(current_point.first));
+  ps_circle.replace(ps_circle.find(y_coord_str), y_coord_str.length(),
+                    to_string(current_point.second));
   ps_circle.replace(ps_circle.find(str_radius), str_radius.length(),
                     to_string(radius));
   return ps_circle;
