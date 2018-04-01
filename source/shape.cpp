@@ -15,10 +15,12 @@ void Shape::scale(double x_scale, double y_scale) {
 void Shape::rotate(unsigned int rotation_Angle) {}
 void Shape::vertical() {}
 void Shape::horizontal() {}
-
+string Shape::toPostScript() { return "don't even think about using me"; }
 Shape::BoundBoxType Shape::getBoundBox() { return bound_box; }
 Shape::PointType Shape::getCurrentPoint() { return current_point; }
-
+void Shape::setCurrentPoint(Shape::PointType new_point) {
+  current_point = new_point;
+}
 // Program constructor, takes a string of source code
 Program::Program(std::string source) { interpret(source); }
 

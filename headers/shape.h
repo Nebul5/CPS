@@ -17,6 +17,7 @@ public:
 protected:
   BoundBoxType bound_box;  // bound_Box(width,height)
   PointType current_point; // current_Point(x,y)
+  PointType starting_point;
   std::string scale_str = "1 1 scale";
   std::string x_coord_str = "x_coord";
   std::string y_coord_str = "y_coord";
@@ -31,10 +32,11 @@ public:
   virtual void horizontal();
   void layer();
 
-  virtual std::string toPostScript() = 0;
+  virtual std::string toPostScript();
 
   BoundBoxType getBoundBox();
   PointType getCurrentPoint();
+  void setCurrentPoint(PointType new_point);
 };
 
 // Stores a syntax tree representing a postscript program
