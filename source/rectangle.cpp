@@ -23,6 +23,10 @@ void Rectangle::vertical() {}
 
 string Rectangle::toPostScript() {
   string ps_rectangle = DRAW_RECTANGLE;
+  ps_rectangle.replace(ps_rectangle.find(x_coord_str), x_coord_str.length(),
+                       to_string(current_point.first));
+  ps_rectangle.replace(ps_rectangle.find(y_coord_str), y_coord_str.length(),
+                       to_string(current_point.second));
   ps_rectangle.replace(ps_rectangle.find(str_height), str_height.length(),
                        to_string(height));
   ps_rectangle.replace(ps_rectangle.find(str_width), str_width.length(),

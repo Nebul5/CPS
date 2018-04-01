@@ -14,10 +14,12 @@ public:
   using BoundBoxType = std::pair<unsigned int, unsigned int>;
   using PointType = std::pair<unsigned int, unsigned int>;
 
-private:
+protected:
   BoundBoxType bound_box;  // bound_Box(width,height)
   PointType current_point; // current_Point(x,y)
   std::string scale_str = "1 1 scale";
+  std::string x_coord_str = "x_coord";
+  std::string y_coord_str = "y_coord";
 
 public:
   Shape() = default;
