@@ -2,6 +2,8 @@
 #define SHAPE_H
 
 #include <string>
+#include<initializer_list>
+using std::initializer_list;
 // std::string
 #include <utility>
 // std::pair
@@ -32,6 +34,7 @@ public:
   virtual void horizontal();
   void layer();
 
+<<<<<<< HEAD
 pair<int, int> max_Dimension(const initializer_list<Shape> &list)
 
 
@@ -41,6 +44,13 @@ pair<int, int> max_Dimension(const initializer_list<Shape> &list)
   PointType getCurrentPoint();
    BoundBoxType getBoundBox()const;
   PointType getCurrentPoint()const;
+=======
+  virtual std::string toPostScript();
+
+  BoundBoxType getBoundBox();
+  PointType getCurrentPoint();
+  void setCurrentPoint(PointType new_point);
+>>>>>>> e24dd5763f4aabdbe92dbb86bb2b213b421ebc94
 };
 
 // Stores a syntax tree representing a postscript program
