@@ -59,7 +59,7 @@ unsigned int Polygon::getSideLength() { return side_length; }
 
 /* This provide the correct Bounding Box for Regular Polygons that are not rotated. I have tested this with drawing works in all cases (When the Bounding Box is allowed to be a float)
 It comes from his hint in the assingments. Again this may not match perfectly with an integer bounding box */
-pair<int,int> make_Bounding_Box(unsigned int number_sides, unsigned int side_length){
+pair<int,int> Polygon::make_Bounding_Box(unsigned int number_sides, unsigned int side_length){
 
 float pi = 3.14159265;
   int height;
@@ -71,7 +71,7 @@ float pi = 3.14159265;
   }
 
   else if(number_sides % 2 == 0 && number_sides % 4 != 0) {
-    height = side_length* cos(pi / n) / sin(pi / number_sides);
+    height = side_length* cos(pi / number_sides) / sin(pi / number_sides);
     width = side_length / sin(pi / number_sides);
   }
 
@@ -95,7 +95,7 @@ Polygon cps::getPolygon(Shape::PointType current_point,
 
 /* This function Takes the current_point and returns the Point from which to start drawing the Regular Polygon so that A side is always centered horizontally below the current point
     This Only works for non-Rotated Shapes*/
-std::pair<int, int> starting_Point(Shape::PointType current_point, unsigned int side_length, unsigned int number_sides) {  
+std::pair<int, int> Polygon::starting_Point(Shape::PointType current_point, unsigned int side_length, unsigned int number_sides) {  
   pair<int, int> point;
   double pi = 3.14159265;
   double apothem = (side_length / 2) / tan(pi / number_sides);
