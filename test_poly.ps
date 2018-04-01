@@ -1,0 +1,85 @@
+
+%Tests the Bounding box calculations and starting point calculations for 
+%Regular Polygons with Sides Divisible by 4 and by 2
+
+/x 300 def
+/y 300 def
+
+
+
+/side 100 def
+/n 10 def
+/ExtAngle 360 n div def
+ /polygon{
+ gsave
+newpath
+moveto
+n 1 sub{
+side 0 rlineto % add line
+ExtAngle rotate
+} repeat
+closepath 
+stroke
+grestore
+ } def
+
+
+newpath
+100 300 moveto
+600 300 lineto 
+stroke
+
+newpath
+300 600 moveto
+300 100 lineto
+stroke
+/apothem 1.732 side mul 2 div def
+
+
+  250 146 polygon % 10 sides
+ 
+
+/n 8 def
+/ExtAngle 360 n div def
+ 250 179 polygon % 8 sides
+
+
+
+/h 307 def
+/w 323 def
+ /rectangle {
+gsave
+newpath % start in top right corner with drawing
+ moveto
+ w 2 div x add h 2 div y add moveto
+-1 w mul 0 rlineto
+0 -1 h mul rlineto   %Is there a better way to do -h or h steps down?
+w 0 rlineto
+closepath
+stroke
+grestore
+ } def
+
+ x y rectangle % bbox 10
+
+
+
+
+/h 241 def
+/w 241 def
+ /rectangle {
+gsave
+newpath % start in top right corner with drawing
+ moveto
+ w 2 div x add h 2 div y add moveto
+-1 w mul 0 rlineto
+0 -1 h mul rlineto   %Is there a better way to do -h or h steps down?
+w 0 rlineto
+closepath
+stroke
+grestore
+ } def
+
+ x y rectangle % bbox 8
+
+showpage
