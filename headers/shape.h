@@ -6,12 +6,15 @@
 #include <utility>
 // std::pair
 
+#include <initializer_list>
+// std::initializer_list
+
 // This is the Shape Base class that Circle, Rectangle and Regular Polygon
 // Inherit from
 namespace cps {
 class Shape {
 public:
-  using BoundBoxType = std::pair<unsigned int, unsigned int>;
+  using BoundBoxType = std::pair<float, float>;
   using PointType = std::pair<unsigned int, unsigned int>;
 
 protected:
@@ -28,19 +31,21 @@ public:
   Shape(BoundBoxType bound_box, PointType current_point);
   void scale(double x_Scale, double y_Scale);
   virtual void rotate(unsigned int rotation_Angle);
-  virtual void vertical(const initializer_list<Shape> & list); 
+  virtual void vertical(const std::initializer_list<Shape> &list);
   virtual void horizontal();
   void layer();
 
-pair<int, int> max_Dimension(const initializer_list<Shape> &list)
+  BoundBoxType maxDimensions(const std::initializer_list<Shape> &list);
 
-
-  virtual std::string toPostScript() = 0;
+  virtual std::string toPostScript();
 
   BoundBoxType getBoundBox();
   PointType getCurrentPoint();
-   BoundBoxType getBoundBox()const;
-  PointType getCurrentPoint()const;
+  BoundBoxType getBoundBox() const;
+  PointType getCurrentPoint() const;
+
+  void setBoundBox(BoundBoxType bound_box);
+  void setCurrentPoint(PointType new_point);
 };
 
 // Stores a syntax tree representing a postscript program

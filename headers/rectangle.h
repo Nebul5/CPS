@@ -4,7 +4,8 @@
 // cps::Shape
 // Shape::BoundBoxType
 // Shape::PointType
-
+#include <initializer_list>
+// std::initializer_list
 #include <string>
 // std::string
 #include <utility>
@@ -28,7 +29,7 @@ public:
   Rectangle(BoundBoxType bound_box, PointType current_Point);
   virtual void rotate(unsigned int rotation_angle) override;
   virtual void horizontal() override;
-  virtual void vertical() override;
+  virtual void vertical(const std::initializer_list<Shape> &list) override;
   virtual std::string toPostScript() override;
 
 public:

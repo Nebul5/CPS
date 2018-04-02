@@ -4,6 +4,8 @@ using cps::Shape;
 using cps::Polygon;
 #include "../headers/consts.h"
 using cps::DRAW_POLYGON;
+#include <initializer_list>
+using std::initializer_list;
 #include <string>
 using std::string;
 using std::to_string;
@@ -25,7 +27,7 @@ void Polygon::rotate(unsigned int rotation_angle) {}
 
 void Polygon::horizontal() {}
 
-void Polygon::vertical() {}
+void Polygon::vertical(const initializer_list<Shape> &list) {}
 
 string Polygon::toPostScript() {
   string ps_polygon = DRAW_POLYGON;
@@ -76,8 +78,8 @@ void Polygon::setStartingPoint() {
 rotated. I have tested this with drawing works in all cases (When the Bounding
 Box is allowed to be a float) It comes from his hint in the assingments. Again
 this may not match perfectly with an integer bounding box */
-pair<int, int> cps::make_Bounding_Box(unsigned int number_sides,
-                                      unsigned int side_length) {
+Shape::BoundBoxType cps::make_Bounding_Box(unsigned int number_sides,
+                                           unsigned int side_length) {
 
   float pi = 3.14159265;
   int height;

@@ -10,6 +10,8 @@ using std::to_string;
 #include <utility>
 using std::make_pair;
 using std::pair;
+#include <initializer_list>
+using std::initializer_list;
 
 Circle::Circle(unsigned int radius, BoundBoxType bound_box,
                PointType current_point)
@@ -19,7 +21,7 @@ void Circle::rotate(unsigned int rotation_angle) {}
 
 void Circle::horizontal() {}
 
-void Circle::vertical() {}
+void Circle::vertical(const initializer_list<Shape> &list) {}
 
 std::string Circle::toPostScript() {
   string ps_circle = DRAW_CIRCLE;

@@ -10,6 +10,8 @@
 // std::string
 #include <utility>
 // std::pair
+#include <initializer_list>
+// std::initializer_list
 
 namespace cps {
 class Circle : public Shape {
@@ -27,7 +29,7 @@ public:
   Circle(unsigned int radius, BoundBoxType bound_box, PointType current_point);
   virtual void rotate(unsigned int rotation_angle) override;
   virtual void horizontal() override;
-  virtual void vertical() override;
+  virtual void vertical(const std::initializer_list<Shape> &list) override;
   virtual std::string toPostScript() override;
 
 public:

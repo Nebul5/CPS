@@ -15,7 +15,7 @@ using std::pair;
 
 TEST_CASE("test rectangle shape") {
   SECTION("constructors behave") {
-    pair<unsigned int, unsigned int> bound_box = make_pair(10, 12);
+    pair<float, float> bound_box = make_pair(10, 12);
     pair<unsigned int, unsigned int> current_point = make_pair(0, 0);
 
     auto test_rectangle = Rectangle(bound_box, current_point);

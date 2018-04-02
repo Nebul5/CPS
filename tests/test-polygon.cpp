@@ -15,7 +15,7 @@ using std::endl;
 
 TEST_CASE("test polygon shape") {
   SECTION("constructors behave") {
-    pair<unsigned int, unsigned int> bound_box = make_pair(10, 12);
+    pair<float, float> bound_box = make_pair(10, 12);
     pair<unsigned int, unsigned int> current_point = make_pair(0, 0);
     unsigned int number_sides = 4;
     unsigned int side_length = 10;

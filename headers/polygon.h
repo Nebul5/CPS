@@ -9,6 +9,8 @@
 // std::string
 #include <utility>
 // std::pair
+#include <initializer_list>
+// std::initializer_list
 
 namespace cps {
 class Polygon : public Shape {
@@ -30,7 +32,7 @@ public:
           unsigned int number_sides, unsigned int side_length);
   virtual void rotate(unsigned int rotation_angle) override;
   virtual void horizontal() override;
-  virtual void vertical() override;
+  virtual void vertical(const std::initializer_list<Shape> &list) override;
   virtual std::string toPostScript() override;
 
 public:
@@ -40,7 +42,7 @@ public:
   void setStartingPoint();
 };
 
-std::pair<int, int> make_Bounding_Box(unsigned int number_sides,
+Shape::BoundBoxType make_Bounding_Box(unsigned int number_sides,
                                       unsigned int side_length);
 Polygon getPolygon(Shape::PointType current_point, unsigned int number_sides,
                    unsigned int side_length);

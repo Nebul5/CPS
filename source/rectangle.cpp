@@ -5,6 +5,8 @@ using cps::Rectangle;
 #include "../headers/consts.h"
 using cps::DRAW_RECTANGLE;
 using cps::INCH;
+#include <initializer_list>
+using std::initializer_list;
 #include <string>
 using std::string;
 using std::to_string;
@@ -19,7 +21,7 @@ void Rectangle::rotate(unsigned int rotation_angle) {}
 
 void Rectangle::horizontal() {}
 
-void Rectangle::vertical() {}
+void Rectangle::vertical(const initializer_list<Shape> &list) {}
 
 string Rectangle::toPostScript() {
   string ps_rectangle = DRAW_RECTANGLE;

@@ -4,6 +4,11 @@ using cps::Shape;
 #include <string>
 using std::string;
 using std::to_string;
+#include <initializer_list>
+using std::initializer_list;
+#include <utility>
+using std::make_pair;
+using std::pair;
 
 Shape::Shape(BoundBoxType bound_box, PointType current_point)
     : bound_box(bound_box), current_point(current_point) {}
@@ -14,8 +19,7 @@ void Shape::scale(double x_scale, double y_scale) {
 }
 void Shape::rotate(unsigned int rotation_Angle) {}
 void Shape::vertical(const initializer_list<Shape> &list) {
-bound_box = maxDimensions(list);
-
+  bound_box = maxDimensions(list);
 }
 void Shape::horizontal() {}
 
@@ -24,18 +28,23 @@ Shape::PointType Shape::getCurrentPoint() { return current_point; }
 Shape::BoundBoxType Shape::getBoundBox() const { return bound_box; }
 Shape::PointType Shape::getCurrentPoint() const { return current_point; }
 
-pair<int, int> Shape::max_Dimension(const initializer_list<Shape> &list)
-{
-  pair<int, int> maxDimensions = std::make_pair(0, 0);
-  for(auto &itm : list)
-  {
+void Shape::setBoundBox(BoundBoxType bound_box) { bound_box = bound_box; }
+void Shape::setCurrentPoint(PointType new_point) { current_point = new_point; }
+
+string Shape::toPostScript() {
+  string ps_string = "improper use of toPostScript in base Shape Class";
+  return ps_string;
+}
+Shape::BoundBoxType Shape::maxDimensions(const initializer_list<Shape> &list) {
+  Shape::BoundBoxType max_dimensions = std::make_pair(0, 0);
+  for (auto &itm : list) {
     auto b_Box = itm.getBoundBox();
-    if (maxDimensions.first < b_Box.first)
-      maxDimensions.first = b_Box.first;
-     if (maxDimensions.second < b_Box.second)
-      maxDimensions.second = b_Box.second;
+    if (max_dimensions.first < b_Box.first)
+      max_dimensions.first = b_Box.first;
+    if (max_dimensions.second < b_Box.second)
+      max_dimensions.second = b_Box.second;
   }
-  return maxDimensions ;
+  return max_dimensions;
 }
 
 // Program constructor, takes a string of source code

@@ -32,8 +32,8 @@ unsigned int Vertical::getNextYCoordinate(unsigned int i) {
 void Vertical::assembleShapes() {
   auto current_point = make_pair<unsigned int, unsigned int>(0, 0);
   unsigned int x;
-  unsigned int width = 0;
-  unsigned int height = 0;
+  float width = 0;
+  float height = 0;
   unsigned int y;
   for (unsigned int i = 1; i < vertical_shapes.size(); ++i) {
     x = vertical_shapes[0].getCurrentPoint().first;
@@ -46,7 +46,7 @@ void Vertical::assembleShapes() {
   }
   height = (vertical_shapes.back().getCurrentPoint().second +
             vertical_shapes.back().getBoundBox().second / 2);
-  bound_box = pair<unsigned int, unsigned int>(width, height);
+  bound_box = Shape::BoundBoxType(width, height);
   cout << "width was " << width << endl;
 }
 
