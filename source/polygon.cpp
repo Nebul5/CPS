@@ -60,9 +60,6 @@ const Shape::PointType Polygon::getStartingPoint() { return starting_point; }
 void Polygon::setStartingPoint() {
   double pi = 3.14159265;
   double apothem = (side_length / 2) / tan(pi / number_sides);
-  if (number_sides % 2 == 1) {
-    apothem = bound_box.second / 2;
-  }
   starting_point.first = (int)(current_point.first - (side_length / 2));
   starting_point.second = (int)(current_point.second - apothem);
 }
