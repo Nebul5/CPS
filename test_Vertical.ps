@@ -1,0 +1,106 @@
+% Here is an example of the Vertical test
+% Rectangle base, Triangle Middle, circle Top
+% Base starts at 200 200
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%Definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+/circle {
+newpath 
+30 0 360 arc  % Radius start_ang Final_ang
+stroke } def 
+
+/side 100 def
+/n 3 def
+/ExtAngle 360 n div def
+ /polygon{
+ gsave
+newpath
+moveto
+n 1 sub{
+side 0 rlineto % add line
+ExtAngle rotate
+} repeat
+closepath 
+stroke
+grestore
+ } def
+
+
+/h 80 def
+/w 240 def
+
+/rectangle {
+gsave
+newpath % start in top right corner with drawing
+ moveto
+w 2 div x add h 2 div y add moveto
+-1 w mul 0 rlineto
+0 -1 h mul rlineto   %Is there a better way to do -h or h steps down?
+w 0 rlineto
+closepath
+stroke
+grestore
+ } def
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %Initialization
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Starting Location
+/x 200 def  
+/y 200 def
+
+% 3 shapes heights
+/h1 80 def
+/h2 86.6 def
+/h3 60 def
+
+%Vertical Shape's Bounding Box
+/width 240 def % Result of the Max Dimension of Horizontal Dimension
+/height h1 h2 add h3 add def %Overall height is the sum of all three shapes bounding boxes
+
+%Number of Shapes
+/Number 3 def
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Draw Coordinate Axes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+newpath
+20 200 moveto
+600 200 lineto 
+stroke
+
+newpath
+200 600 moveto
+200 20 lineto
+stroke
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Drawing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%Template for doing this
+ %Number 1 sub{
+	%x y shape	
+	%Redefine x and Y with the bounding Box Info
+%}repeat
+
+
+x y rectangle
+
+%/y h1 2 div y add def
+
+150 240 polygon  %not the center point but the base starting point is the coordinate used before drawing
+
+%/y h2 2 div y add def
+
+x 356.6 circle
+
+
+ showpage

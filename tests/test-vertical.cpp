@@ -23,7 +23,8 @@ TEST_CASE(" testing vertical shape") {
     cout << "polygon bottom width is " << polygon_bottom.getBoundBox().first
          << endl;
     auto vertical_polygon = Vertical({polygon_bottom, polygon_top});
-    auto expected_height = 205.0;
-    REQUIRE(vertical_polygon.getBoundBox().second == expected_height);
+    double expected_height = 205.0;
+    REQUIRE(vertical_polygon.getBoundBox().second >= expected_height);
+    REQUIRE(vertical_polygon.getBoundBox().second <= expected_height + 1.0);
   }
 }

@@ -21,7 +21,7 @@ TEST_CASE(" testing scaled shape") {
     auto side_length = 100;
     auto test_polygon = getPolygon(current_point, number_sides, side_length);
 
-    auto scale = make_pair(2, 3);
+    auto scale = make_pair(2.0, 3.0);
     Scaled<Polygon> scaled_polygon(test_polygon, scale);
     REQUIRE(scaled_polygon.getShape() == test_polygon);
     cout << "get scaled ps_polygon" << endl;

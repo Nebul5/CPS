@@ -10,7 +10,7 @@
 namespace cps {
 template <typename shape_type> class Scaled {
 public:
-  using ScaleType = std::pair<unsigned int, unsigned int>;
+  using ScaleType = std::pair<double, double>;
 
 private:
   shape_type shape;

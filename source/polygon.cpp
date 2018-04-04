@@ -60,9 +60,6 @@ const Shape::PointType Polygon::getStartingPoint() { return starting_point; }
 void Polygon::setStartingPoint() {
   double pi = 3.14159265;
   double apothem = (side_length / 2.0) / tan(pi / number_sides);
-  if (number_sides % 2 == 1) {
-    apothem = bound_box.second / 2.0;
-  }
   starting_point.first = (int)(current_point.first - (side_length / 2.0));
   starting_point.second = (int)(current_point.second - apothem);
 }
@@ -76,14 +73,14 @@ void Polygon::setStartingPoint() {
 
 /* This provide the correct Bounding Box for Regular Polygons that are not
 rotated. I have tested this with drawing works in all cases (When the Bounding
-Box is allowed to be a float) It comes from his hint in the assingments. Again
+Box is allowed to be a double) It comes from his hint in the assingments. Again
 this may not match perfectly with an integer bounding box */
 Shape::BoundBoxType cps::make_Bounding_Box(unsigned int number_sides,
                                            unsigned int side_length) {
 
-  float pi = 3.14159265;
-  float height;
-  float width;
+  double pi = 3.14159265;
+  double height;
+  double width;
 
   if (number_sides % 2 == 1) {
     height = side_length * (1 + cos(pi / number_sides)) /

@@ -1,0 +1,43 @@
+
+
+
+/side 100 def
+/n 3 def
+/ExtAngle 360 n div def
+
+ /polygon{
+ gsave
+newpath
+moveto
+%rotate
+n 1 sub{
+side 0 rlineto % add line
+ExtAngle rotate
+} repeat
+closepath 
+stroke
+grestore
+ } def
+
+newpath
+100 300 moveto
+600 300 lineto 
+stroke
+
+newpath
+300 600 moveto
+300 100 lineto
+stroke
+
+279 238 polygon
+gsave
+120 rotate
+279 238 polygon
+grestore
+%120 rotate
+%300 400 polygon
+
+
+
+
+showpage
