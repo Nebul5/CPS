@@ -56,26 +56,26 @@ TEST_CASE("test polygon shape") {
 
     // Test the Bounding Boxes
     auto tbox = triangle.getBoundBox();
-    REQUIRE(tbox.first == 100);
-    REQUIRE(tbox.second == 86);
+    REQUIRE(tbox.first == 115.47005f);
+    REQUIRE(tbox.second == 86.60254f);
 
     auto sbox = septagon.getBoundBox();
-    REQUIRE(sbox.first == 224);
-    REQUIRE(sbox.second == 219);
+    REQUIRE(sbox.first == 224.69795f);
+    REQUIRE(sbox.second == 219.06432f);
 
     auto obox = octagon.getBoundBox();
-    REQUIRE(obox.first == 241);
-    REQUIRE(obox.second == 241);
+    REQUIRE(obox.first == 241.42136f);
+    REQUIRE(obox.second == 241.42136f);
 
     auto dbox = decagon.getBoundBox();
-    REQUIRE(dbox.first == 323);
-    REQUIRE(dbox.second == 307);
+    REQUIRE(dbox.first == 323.60678f);
+    REQUIRE(dbox.second == 307.76834f);
 
     // test the Starting Points this is the left end of the bottom side of the
     // polygon (where the postscript drawing begins)
     // auto tstart = triangle.getStartingPoint(current_point, n1, side);
     REQUIRE(triangle.getStartingPoint().first == 250);
-    REQUIRE(triangle.getStartingPoint().second == 257);
+    REQUIRE(triangle.getStartingPoint().second == 256);
 
     // auto sstart = septagon.getStartingPoint(current_point, n2, side);
     REQUIRE(septagon.getStartingPoint().first == 250);

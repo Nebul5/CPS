@@ -11,7 +11,7 @@
 
 namespace cps {
 class Vertical {
-  using BoundBoxType = std::pair<unsigned int, unsigned int>;
+  using BoundBoxType = std::pair<float, float>;
 
 private:
   std::vector<Shape> vertical_shapes;

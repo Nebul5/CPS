@@ -59,11 +59,11 @@ const Shape::PointType Polygon::getStartingPoint() { return starting_point; }
    horizontally below the current point This Only works for non-Rotated Shapes*/
 void Polygon::setStartingPoint() {
   double pi = 3.14159265;
-  double apothem = (side_length / 2) / tan(pi / number_sides);
+  double apothem = (side_length / 2.0) / tan(pi / number_sides);
   if (number_sides % 2 == 1) {
-    apothem = bound_box.second / 2;
+    apothem = bound_box.second / 2.0;
   }
-  starting_point.first = (int)(current_point.first - (side_length / 2));
+  starting_point.first = (int)(current_point.first - (side_length / 2.0));
   starting_point.second = (int)(current_point.second - apothem);
 }
 /*Polygon cps::getPolygon(Shape::PointType current_point,
@@ -82,13 +82,13 @@ Shape::BoundBoxType cps::make_Bounding_Box(unsigned int number_sides,
                                            unsigned int side_length) {
 
   float pi = 3.14159265;
-  int height;
-  int width;
+  float height;
+  float width;
 
   if (number_sides % 2 == 1) {
     height = side_length * (1 + cos(pi / number_sides)) /
              (2 * sin(pi / number_sides));
-    width = side_length * sin(pi * (number_sides - 1) / (2 * number_sides)) /
+    width = side_length * sin(pi * (number_sides) / (2 * number_sides)) /
             sin(pi / number_sides);
   }
 
