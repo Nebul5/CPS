@@ -13,9 +13,9 @@ using std::pair;
 
 TEST_CASE("test circle shape") {
   SECTION("constructors behave") {
-    unsigned int radius = 5;
+    int radius = 5;
     pair<double, double> bound_box = make_pair(10, 10);
-    pair<unsigned int, unsigned int> current_point = make_pair(0, 0);
+    pair<int, int> current_point = make_pair(0, 0);
 
     auto test_circle = Circle(radius, bound_box, current_point);
 

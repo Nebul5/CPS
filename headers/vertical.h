@@ -27,7 +27,7 @@ public:
   const BoundBoxType getBoundBox();
 
 private:
-  unsigned int getNextYCoordinate(unsigned int i);
+  int getNextYCoordinate(int i);
 };
 } // namespace cps
 #endif

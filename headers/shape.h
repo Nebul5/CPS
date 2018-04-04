@@ -15,7 +15,7 @@ namespace cps {
 class Shape {
 public:
   using BoundBoxType = std::pair<double, double>;
-  using PointType = std::pair<unsigned int, unsigned int>;
+  using PointType = std::pair<int, int>;
 
 protected:
   BoundBoxType bound_box;  // bound_Box(width,height)
@@ -30,7 +30,7 @@ public:
   ~Shape() = default;
   Shape(BoundBoxType bound_box, PointType current_point);
   void scale(double x_Scale, double y_Scale);
-  virtual void rotate(unsigned int rotation_Angle);
+  virtual void rotate(int rotation_Angle);
   virtual void vertical(const std::initializer_list<Shape> &list);
   virtual void horizontal();
   void layer();

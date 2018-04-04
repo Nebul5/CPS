@@ -20,14 +20,14 @@ public:
   using Shape::PointType;
 
 private:
-  unsigned int radius;
+  int radius;
   const std::string str_radius = "radius";
 
 public:
   Circle() = default;
   ~Circle() = default;
-  Circle(unsigned int radius, BoundBoxType bound_box, PointType current_point);
-  virtual void rotate(unsigned int rotation_angle) override;
+  Circle(int radius, BoundBoxType bound_box, PointType current_point);
+  virtual void rotate(int rotation_angle) override;
   virtual void horizontal() override;
   virtual void vertical(const std::initializer_list<Shape> &list) override;
   virtual std::string toPostScript() override;
@@ -35,6 +35,6 @@ public:
 public:
   int getRadius();
 };
-Circle getCircle(Shape::PointType current_point, unsigned int radius);
+Circle getCircle(Shape::PointType current_point, int radius);
 } // namespace cps
 #endif

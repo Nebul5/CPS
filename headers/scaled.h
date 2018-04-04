@@ -20,6 +20,7 @@ private:
 public:
   Scaled() = default;
   Scaled(shape_type shape, ScaleType scale) : shape(shape), scale(scale) {
+    scaleBoundBox();
     makeScaleStr();
   }
 
@@ -31,6 +32,11 @@ private:
     scale_str = "scale " + std::to_string(scale.first) + " " +
                 std::to_string(scale.second) + "\n";
   };
+  void scaleBoundBox() {
+    shape.setBoundBox(
+        Shape::BoundBoxType(shape.getBoundBox().first * scale.first,
+                            shape.getBoundBox().second * scale.second));
+  }
 };
 } // namespace cps
 #endif

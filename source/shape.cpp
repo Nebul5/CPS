@@ -17,7 +17,7 @@ void Shape::layer() {}
 void Shape::scale(double x_scale, double y_scale) {
   scale_str = to_string(x_scale) + " " + to_string(y_scale) + " scale\n";
 }
-void Shape::rotate(unsigned int rotation_Angle) {}
+void Shape::rotate(int rotation_Angle) {}
 void Shape::vertical(const initializer_list<Shape> &list) {
   bound_box = maxDimensions(list);
 }

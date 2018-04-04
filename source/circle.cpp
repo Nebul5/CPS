@@ -13,11 +13,10 @@ using std::pair;
 #include <initializer_list>
 using std::initializer_list;
 
-Circle::Circle(unsigned int radius, BoundBoxType bound_box,
-               PointType current_point)
+Circle::Circle(int radius, BoundBoxType bound_box, PointType current_point)
     : radius(radius), Shape(bound_box, current_point) {}
 
-void Circle::rotate(unsigned int rotation_angle) {}
+void Circle::rotate(int rotation_angle) {}
 
 void Circle::horizontal() {}
 
@@ -36,9 +35,8 @@ std::string Circle::toPostScript() {
 
 int Circle::getRadius() { return radius; }
 
-Circle cps::getCircle(Shape::PointType current_point, unsigned int radius) {
-  auto bound_box =
-      make_pair<unsigned int, unsigned int>(radius * 2, radius * 2);
+Circle cps::getCircle(Shape::PointType current_point, int radius) {
+  auto bound_box = make_pair<int, int>(radius * 2, radius * 2);
 
   return Circle(radius, bound_box, current_point);
 }

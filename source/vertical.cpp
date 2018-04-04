@@ -23,24 +23,24 @@ Vertical::Vertical(initializer_list<Shape> shapes) {
   assembleShapes();
 }
 
-unsigned int Vertical::getNextYCoordinate(unsigned int i) {
-  unsigned int y = ((vertical_shapes[i - 1].getCurrentPoint().second +
-                     vertical_shapes[i - 1].getBoundBox().second / 2) +
-                    (vertical_shapes[i].getBoundBox().second / 2));
+int Vertical::getNextYCoordinate(int i) {
+  int y = ((vertical_shapes[i - 1].getCurrentPoint().second +
+            vertical_shapes[i - 1].getBoundBox().second / 2) +
+           (vertical_shapes[i].getBoundBox().second / 2));
   return y;
 }
 
 void Vertical::assembleShapes() {
-  auto current_point = make_pair<unsigned int, unsigned int>(0, 0);
-  unsigned int x;
+  auto current_point = make_pair<int, int>(0, 0);
+  int x;
   double width = 0;
   double height = 0;
-  unsigned int y;
-  for (unsigned int i = 1; i < vertical_shapes.size(); ++i) {
+  int y;
+  for (int i = 1; i < vertical_shapes.size(); ++i) {
     x = vertical_shapes[0].getCurrentPoint().first;
     width = max(width, vertical_shapes[i].getBoundBox().first);
     y = getNextYCoordinate(i);
-    current_point = pair<unsigned int, unsigned int>(x, y);
+    current_point = pair<int, int>(x, y);
     cout << "calculated current point " << i << " was " << x << ", " << y
          << endl;
     vertical_shapes[i].setCurrentPoint(current_point);
@@ -53,7 +53,7 @@ void Vertical::assembleShapes() {
 
 string Vertical::toPostScript() {
   string vertical_ps_string;
-  for (unsigned int i = 0; i < vertical_shapes.size(); ++i) {
+  for (int i = 0; i < vertical_shapes.size(); ++i) {
     vertical_ps_string += vertical_shapes[i].toPostScript();
   }
   return vertical_ps_string;

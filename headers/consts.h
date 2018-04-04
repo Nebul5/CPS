@@ -11,7 +11,7 @@ static const std::string DRAW_RECTANGLE = "/h height def\n\
 /y y_coord def\n\
 gsave\n\
 newpath\n\
-moveto x y\n\
+x y moveto\n\
 w 2 div h 2 div translate\n\
 -1 w mul 0 rlineto\n\
 0 -1 h mul rlineto\n\
@@ -23,7 +23,7 @@ grestore\n";
 static const std::string DRAW_CIRCLE = "/x x_coord def\n\
 /y y_coord def\n\
 newpath\n\
-moveto x y\n\
+x y moveto\n\
 radius 0 360 arc\n\
 stroke\n ";
 static const std::string DRAW_POLYGON = "/x x_coord def\n\
@@ -33,7 +33,7 @@ static const std::string DRAW_POLYGON = "/x x_coord def\n\
 /ExtAngle 360 ns div def\n\
 gsave\n\
 newpath\n\
-moveto x y\n\
+x y moveto\n\
 ns 1 sub{\n\
 sl 0 rlineto % add line\n\
 ExtAngle rotate\n\

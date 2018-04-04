@@ -7,6 +7,8 @@ using cps::Polygon;
 using cps::Vertical;
 #include "catch.hpp"
 
+#include <fstream>
+using std::fstream;
 #include <iostream>
 using std::cout;
 using std::endl;
@@ -26,5 +28,13 @@ TEST_CASE(" testing vertical shape") {
     double expected_height = 205.0;
     REQUIRE(vertical_polygon.getBoundBox().second >= expected_height);
     REQUIRE(vertical_polygon.getBoundBox().second <= expected_height + 1.0);
+
+    fstream to_ps;
+    to_ps.open("test-vertical.ps");
+    if (not to_ps.is_open()) {
+      cout << "could not open file" << endl;
+    }
+    to_ps << vertical_polygon.toPostScript();
+    to_ps.close();
   }
 }

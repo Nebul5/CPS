@@ -17,13 +17,13 @@ using std::pair;
 #define PI 3.14159265
 
 Polygon::Polygon(BoundBoxType bound_box, PointType current_point,
-                 unsigned int number_sides, unsigned int side_length)
+                 int number_sides, int side_length)
     : number_sides(number_sides), side_length(side_length),
       Shape(bound_box, current_point) {
   setStartingPoint();
 }
 
-void Polygon::rotate(unsigned int rotation_angle) {}
+void Polygon::rotate(int rotation_angle) {}
 
 void Polygon::horizontal() {}
 
@@ -50,8 +50,8 @@ bool Polygon::operator==(const Polygon &rhs) const {
   return true;
 }
 
-unsigned int Polygon::getNumberOfSides() { return number_sides; }
-unsigned int Polygon::getSideLength() { return side_length; }
+int Polygon::getNumberOfSides() { return number_sides; }
+int Polygon::getSideLength() { return side_length; }
 const Shape::PointType Polygon::getStartingPoint() { return starting_point; }
 
 /* This function Takes the current_point and returns the Point from which to
@@ -60,13 +60,14 @@ const Shape::PointType Polygon::getStartingPoint() { return starting_point; }
 void Polygon::setStartingPoint() {
   double pi = 3.14159265;
   double apothem = (side_length / 2.0) / tan(pi / number_sides);
+
   starting_point.first = (int)(current_point.first - (side_length / 2.0));
   starting_point.second = (int)(current_point.second - apothem);
 }
 /*Polygon cps::getPolygon(Shape::PointType current_point,
-                        unsigned int number_sides, unsigned int side_length) {
+                        int number_sides, int side_length) {
   auto denominator = sin(PI / double(number_sides));
-  unsigned int radius = abs(ceil(double(side_length) / denominator));
+  int radius = abs(ceil(double(side_length) / denominator));
   auto bound_box = make_pair(radius, radius);
   return Polygon(bound_box, current_point, number_sides, side_length);
 }*/
@@ -75,8 +76,7 @@ void Polygon::setStartingPoint() {
 rotated. I have tested this with drawing works in all cases (When the Bounding
 Box is allowed to be a double) It comes from his hint in the assingments. Again
 this may not match perfectly with an integer bounding box */
-Shape::BoundBoxType cps::make_Bounding_Box(unsigned int number_sides,
-                                           unsigned int side_length) {
+Shape::BoundBoxType cps::make_Bounding_Box(int number_sides, int side_length) {
 
   double pi = 3.14159265;
   double height;
@@ -102,8 +102,8 @@ Shape::BoundBoxType cps::make_Bounding_Box(unsigned int number_sides,
   return box;
 }
 
-Polygon cps::getPolygon(Shape::PointType current_point,
-                        unsigned int number_sides, unsigned int side_length) {
+Polygon cps::getPolygon(Shape::PointType current_point, int number_sides,
+                        int side_length) {
 
   auto bound_box = make_Bounding_Box(number_sides, side_length);
   return Polygon(bound_box, current_point, number_sides, side_length);
