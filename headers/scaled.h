@@ -1,6 +1,8 @@
 #ifndef SCALED_H
 #define SCALED_H
+#include "consts.h"
 #include "shape.h"
+using cps::MOVETO;
 #include <string>
 // std::string
 // std::to_string;
@@ -15,7 +17,7 @@ public:
 private:
   shape_type shape;
   ScaleType scale;
-  std::string scale_str = "scale x y\n";
+  std::string scale_str = "x y scale \n";
 
 public:
   Scaled() = default;
@@ -24,13 +26,18 @@ public:
     makeScaleStr();
   }
 
-  std::string toPostScript() { return scale_str + shape.toPostScript(); }
+  std::string toPostScript() {
+    auto shape_str = shape.toPostScript();
+    shape_str.replace(shape_str.find(MOVETO), MOVETO.length(),
+                      (MOVETO + scale_str));
+    return shape_str;
+  }
   shape_type getShape() const { return shape; }
 
 private:
   void makeScaleStr() {
-    scale_str = "scale " + std::to_string(scale.first) + " " +
-                std::to_string(scale.second) + "\n";
+    scale_str = std::to_string(scale.first) + " " +
+                std::to_string(scale.second) + " scale " + "\n";
   };
   void scaleBoundBox() {
     shape.setBoundBox(

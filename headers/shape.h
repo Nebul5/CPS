@@ -21,7 +21,6 @@ protected:
   BoundBoxType bound_box;  // bound_Box(width,height)
   PointType current_point; // current_Point(x,y)
   PointType starting_point;
-  std::string scale_str = "1 1 scale";
   std::string x_coord_str = "x_coord";
   std::string y_coord_str = "y_coord";
 
@@ -29,7 +28,7 @@ public:
   Shape() = default;
   ~Shape() = default;
   Shape(BoundBoxType bound_box, PointType current_point);
-  void scale(double x_Scale, double y_Scale);
+  void scale(double x_scale, double y_scale);
   virtual void rotate(int rotation_Angle);
   virtual void vertical(const std::initializer_list<Shape> &list);
   virtual void horizontal();
