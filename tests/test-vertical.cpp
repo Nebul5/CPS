@@ -33,7 +33,6 @@ TEST_CASE(" testing vertical shape") {
     double expected_height = 650.0;
     REQUIRE(vertical_polygon.getBoundBox().second >= expected_height);
     REQUIRE(vertical_polygon.getBoundBox().second <= expected_height + 1.0);
-    vertical_polygon.toPostScript();
 
     fstream to_ps;
     to_ps.open("test-vertical.ps");

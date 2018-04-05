@@ -5,6 +5,8 @@
 // std::string
 #include <utility>
 // std::pair
+#include <memory>
+// std::shared_ptr
 
 #include <initializer_list>
 // std::initializer_list
@@ -16,6 +18,7 @@ class Shape {
 public:
   using BoundBoxType = std::pair<double, double>;
   using PointType = std::pair<int, int>;
+  using ShapePtr = std::shared_ptr<Shape>;
 
 protected:
   BoundBoxType bound_box;  // bound_Box(width,height)

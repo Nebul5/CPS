@@ -20,7 +20,7 @@ using std::vector;
 #include <initializer_list>
 using std::initializer_list;
 
-Vertical::Vertical(initializer_list<shared_ptr<Shape>> shapes) {
+Vertical::Vertical(initializer_list<ShapePtr> shapes) {
   vertical_shapes = shapes;
   assembleShapes();
 }

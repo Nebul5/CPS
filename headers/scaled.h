@@ -10,29 +10,30 @@ using cps::MOVETO;
 // std::pair
 
 namespace cps {
-template <typename shape_type> class Scaled {
+class Scaled {
 public:
   using ScaleType = std::pair<double, double>;
+  using ShapePtr = Shape::ShapePtr;
 
 private:
-  shape_type shape;
+  ShapePtr shape;
   ScaleType scale;
   std::string scale_str = "x y scale \n";
 
 public:
   Scaled() = default;
-  Scaled(shape_type shape, ScaleType scale) : shape(shape), scale(scale) {
+  Scaled(ShapePtr shape, ScaleType scale) : shape(shape), scale(scale) {
     scaleBoundBox();
     makeScaleStr();
   }
 
   std::string toPostScript() {
-    auto shape_str = shape.toPostScript();
+    auto shape_str = shape->toPostScript();
     shape_str.replace(shape_str.find(MOVETO), MOVETO.length(),
                       (MOVETO + scale_str));
     return shape_str;
   }
-  shape_type getShape() const { return shape; }
+  ShapePtr getShape() const { return shape; }
 
 private:
   void makeScaleStr() {
@@ -40,9 +41,9 @@ private:
                 std::to_string(scale.second) + " scale " + "\n";
   };
   void scaleBoundBox() {
-    shape.setBoundBox(
-        Shape::BoundBoxType(shape.getBoundBox().first * scale.first,
-                            shape.getBoundBox().second * scale.second));
+    shape->setBoundBox(
+        Shape::BoundBoxType(shape->getBoundBox().first * scale.first,
+                            shape->getBoundBox().second * scale.second));
   }
 };
 } // namespace cps
