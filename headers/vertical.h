@@ -6,6 +6,8 @@
 // std::initializer_list
 #include <vector>
 // std::vector
+#include <memory>
+// std::shared_ptr
 #include <utility>
 // std::pair
 
@@ -14,16 +16,16 @@ class Vertical {
   using BoundBoxType = std::pair<double, double>;
 
 private:
-  std::vector<Shape> vertical_shapes;
+  std::vector<std::shared_ptr<Shape>> vertical_shapes;
   BoundBoxType bound_box;
 
 public:
   Vertical() = default;
   ~Vertical() = default;
-  Vertical(std::initializer_list<Shape> shapes);
+  Vertical(std::initializer_list<std::shared_ptr<Shape>> shapes);
   std::string toPostScript();
   void assembleShapes();
-  const std::vector<Shape> getShapes();
+  const std::vector<std::shared_ptr<Shape>> getShapes();
   const BoundBoxType getBoundBox();
 
 private:

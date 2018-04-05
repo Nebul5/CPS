@@ -4,15 +4,15 @@
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Definitions
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 /circle {
-newpath 
+newpath
 30 0 360 arc  % Radius start_ang Final_ang
-stroke } def 
+stroke } def
 
 /side 100 def
 /n 3 def
@@ -25,7 +25,7 @@ n 1 sub{
 side 0 rlineto % add line
 ExtAngle rotate
 } repeat
-closepath 
+closepath
 stroke
 grestore
  } def
@@ -52,7 +52,7 @@ grestore
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %Starting Location
-/x 200 def  
+/x 200 def
 /y 200 def
 
 % 3 shapes heights
@@ -73,7 +73,7 @@ grestore
 
 newpath
 20 200 moveto
-600 200 lineto 
+600 200 lineto
 stroke
 
 newpath
@@ -87,7 +87,7 @@ stroke
 
 %%%Template for doing this
  %Number 1 sub{
-	%x y shape	
+	%x y shape
 	%Redefine x and Y with the bounding Box Info
 %}repeat
 

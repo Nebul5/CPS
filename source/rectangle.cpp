@@ -39,3 +39,6 @@ string Rectangle::toPostScript() {
 
 int Rectangle::getWidth() { return width; }
 int Rectangle::getHeight() { return height; }
+void Rectangle::setCurrentPoint(PointType new_point) {
+  current_point = new_point;
+}

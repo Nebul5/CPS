@@ -40,6 +40,7 @@ public:
   int getSideLength();
   const PointType getStartingPoint();
   void setStartingPoint();
+  virtual void setCurrentPoint(PointType new_point) override;
 };
 
 Shape::BoundBoxType make_Bounding_Box(int number_sides, int side_length);

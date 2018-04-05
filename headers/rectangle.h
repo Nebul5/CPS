@@ -35,6 +35,7 @@ public:
 public:
   int getWidth();
   int getHeight();
+  virtual void setCurrentPoint(PointType new_point) override;
 };
 } // namespace cps
 #endif

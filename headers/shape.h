@@ -45,7 +45,7 @@ public:
   PointType getCurrentPoint() const;
 
   void setBoundBox(BoundBoxType bound_box);
-  void setCurrentPoint(PointType new_point);
+  virtual void setCurrentPoint(PointType new_point);
 };
 
 // Stores a syntax tree representing a postscript program

@@ -34,6 +34,7 @@ public:
 
 public:
   int getRadius();
+  virtual void setCurrentPoint(PointType new_point) override;
 };
 Circle getCircle(Shape::PointType current_point, int radius);
 } // namespace cps

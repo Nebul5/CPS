@@ -64,6 +64,10 @@ void Polygon::setStartingPoint() {
   starting_point.first = (int)(current_point.first - (side_length / 2.0));
   starting_point.second = (int)(current_point.second - apothem);
 }
+void Polygon::setCurrentPoint(PointType new_point) {
+  current_point = new_point;
+  setStartingPoint();
+}
 /*Polygon cps::getPolygon(Shape::PointType current_point,
                         int number_sides, int side_length) {
   auto denominator = sin(PI / double(number_sides));

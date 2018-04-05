@@ -21,10 +21,10 @@ bool within_one(double val1, double val2) { return abs(val1 - val2) <= 1.0; }
 bool within_one(int val1, int val2) { return abs(val1 - val2) <= 1; }
 TEST_CASE("test polygon shape") {
   SECTION("constructors behave") {
-    pair<double, double> bound_box = make_pair(10, 12);
-    pair<int, int> current_point = make_pair(15, 15);
+    pair<double, double> bound_box = make_pair(100, 100);
+    pair<int, int> current_point = make_pair(150, 150);
     int number_sides = 4;
-    int side_length = 10;
+    int side_length = 100;
 
     auto test_polygon =
         Polygon(bound_box, current_point, number_sides, side_length);
@@ -40,13 +40,14 @@ TEST_CASE("test polygon shape") {
     if (not to_ps.is_open()) {
       cout << "could not open file" << endl;
     }
-    to_ps << test_polygon.toPostScript();
+    auto to_ps_str = test_polygon.toPostScript();
+    to_ps << to_ps_str;
     to_ps.close();
   }
   SECTION("getPolygon function behaves") {
-    pair<int, int> current_point = make_pair(0, 0);
+    pair<int, int> current_point = make_pair(100, 100);
     int number_sides = 5;
-    int side_length = 10;
+    int side_length = 100;
     auto calculated_polygon =
         getPolygon(current_point, number_sides, side_length);
     auto bound_box = calculated_polygon.getBoundBox();

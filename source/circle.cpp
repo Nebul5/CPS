@@ -40,3 +40,4 @@ Circle cps::getCircle(Shape::PointType current_point, int radius) {
 
   return Circle(radius, bound_box, current_point);
 }
+void Circle::setCurrentPoint(PointType new_point) { current_point = new_point; }
