@@ -1,0 +1,46 @@
+Task 4:
+Design and implement a test strategy for this project. In addition to the test cases themselves, you should give a brief commentary 
+explaining your strategy.
+
+The first tests we did were to outline the Shape and related classes in C++ and make sure that they could compile. Then in Catch2 we 
+created tests for each shape type: circle, rectangle, polygon that verified that each object could be created and their data members set
+correctly. Next the Postscript procedures for generating each shape were created and examples of each shape, rotation and scaling of each 
+shape, and the construction of compound shapes involving each base shape class were constructed. These tests were drawn with the bounding
+boxes and coordinate lines also drawn to verify correct symmetry and sizing. These tests were visual acceptance tests.
+
+Next the CPS member functions that calculated the correct placement of shape center points and shape's bounding boxes were tested in Catch2
+to make sure they conformed to hand calculated examples and then postscript graphics of those shapes were drawn using the numbers calculated 
+by our CPS member functions for a visual acceptance test.
+
+Next our custom shape, a sphere, was created in postscript and a visual acceptance test was run.
+
+Finally our CPS drawing functions that create strings of postscript functions that are used to write a Postscript file were tested by 
+running the CPS generated Postscript files in in ghost script viewer, to visually confirm that they drew intelligible postscript. Finally
+for the same expected shapes both our original postscript files and CPS toPostScript function string outputs were compared to assure that
+they were in fact the same strings.
+
+Task 5:
+Critique the specification of the shape language. Is the language expressive enough to create interesting drawings?
+Are the shape abstractions well-designed, or not? Do they make certain drawings easy/difficult to create? 
+If you were to design the shape language from scratch, what would you do differently?
+
+Our custom sphere shape is definitely an interesting drawing, so yes our CPS can draw interesting shapes. Besides, the sphere shape we
+did not provide any other compound shapes that could function as an easy to use template for a user to create interesting complex shapes 
+with. A user would have to write a lot of CPS manually and do a lot of calcultations themselves in order to place shapes in an interesting 
+manner. Or if they were clever, they could probably write a recursive function that could build something cool, without much code. Adding
+the ability to draw lines would have added a lot of extra interesting funcitonality for the user as would allowing the user to adjust the 
+line color and line width. 
+
+The shape abstractions allow a lot of code reuse. Nothing violates the Liskov substitution principle since squares and triangles, as we 
+define them are just specific examples of the polygon class they inherit from. Limitations of our shape class is that only regular polygons 
+can be drawn and only rotations of multiples of 90 degrees can be performed. Also the way the polygon class is constructed, the drawing does
+not begin directly from the center, but rather calculates a starting point base on geometry of the left end of a flat side starting directly
+below and horizontally centered around the center of the polygon that is to be drawn. This adds extra complexity because all the other 
+shapes only have to know their center point for their Postscript to be drawn, but polygons have to have a further point calculated before
+they are drawn. 
+
+If this project was repeated, maybe more time could be spent on understanding the math of the shapes, so that maybe the polygons could
+be drawn differently so as to fit the same template as the other shapes better. Also the ability to accept a rotation of any degree 
+would be nice (this was attempted for a long time but failed to generally pass all the acceptance tests). Also it was suggested that 
+maybe a visitor design pattern could have been used to generate the different shapes and that this would make the code easier to use and 
+read.
