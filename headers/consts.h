@@ -25,12 +25,13 @@ grestore\n";
 
 static const std::string DRAW_CIRCLE = "/x x_coord def\n\
 /y y_coord def\n\
+/rad radius def\n\
 gsave\n\
 newpath\n\
 x y moveto\n\
-radius 0 360 arc\n\
+x rad sub y rad 0 360 arc\n\
 stroke\n\
-grestore\n";
+grestore\n ";
 static const std::string DRAW_POLYGON = "/x x_coord def\n\
 /y y_coord def\n\
 /ns number_sides def\n\

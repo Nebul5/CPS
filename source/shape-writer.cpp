@@ -20,6 +20,7 @@ void cps::writePSfile(vector<shared_ptr<Shape>> shapes, string ps_filename) {
   for (auto i = 0; i < shapes.size(); ++i) {
     ps_file_str += shapes[i]->toPostScript() + "\n";
   }
+  ps_file_str += "showpage\n";
   ps_file << ps_file_str;
   ps_file.close();
 }

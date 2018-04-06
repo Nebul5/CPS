@@ -2,6 +2,7 @@
 using cps::Shape;
 #include "../headers/circle.h"
 using cps::Circle;
+using cps::getCircle;
 #include "../headers/rectangle.h"
 using cps::Rectangle;
 #include "../headers/polygon.h"
@@ -29,12 +30,12 @@ using std::pair;
 using std::vector;
 
 int main() {
-  int rad = 100;
+  int radius = 100;
   vector<shared_ptr<Shape>> shapes = {};
-  auto bound_box = make_pair(200, 200);
-  auto circle_point = make_pair(0, 0);
-  // auto test_circ = make_shared<Circle>(Circle(rad, bound_box, circle_point));
-  // shapes.push_back(test_circ);
+  auto circle_point = make_pair(200, 500);
+  auto test_circ = make_shared<Circle>(getCircle(circle_point, radius));
+  shapes.push_back(test_circ);
+
   auto polygon_point = make_pair(100, 100);
   auto test_polygon = make_shared<Polygon>(getPolygon(polygon_point, 3, 80));
   shapes.push_back(test_polygon);
@@ -58,16 +59,18 @@ int main() {
   shapes.push_back(polygon_to_scale);
   shapes.push_back(scaled);
 
-  auto horizontal_polygon_point = make_pair(200, 300);
-  auto left_polygon =
-      make_shared<Polygon>(getPolygon(horizontal_polygon_point, 5, 100));
-  auto right_polygon =
-      make_shared<Polygon>(getPolygon(horizontal_polygon_point, 4, 100));
+  /*
+    auto horizontal_polygon_point = make_pair(200, 300);
+    auto left_polygon =
+        make_shared<Polygon>(getPolygon(horizontal_polygon_point, 5, 100));
+    auto right_polygon =
+        make_shared<Polygon>(getPolygon(horizontal_polygon_point, 4, 100));
 
-  auto horizontal =
-      make_shared<Horizontal>(Horizontal({left_polygon, right_polygon}));
+    auto horizontal =
+        make_shared<Horizontal>(Horizontal({left_polygon, right_polygon}));
+    shapes.push_back(horizontal);
+  */
 
-  shapes.push_back(horizontal);
   writePSfile(shapes, "main3");
 
   return 0;
