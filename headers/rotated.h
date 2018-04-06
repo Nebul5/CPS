@@ -10,10 +10,10 @@
 // std::pair
 
 namespace cps {
-class Rotated {
+class Rotated : public Shape {
 public:
-  using PointType = Shape::PointType;
-  using ShapePtr = Shape::ShapePtr;
+  using Shape::PointType;
+  using Shape::ShapePtr;
 
 private:
   int rotation_angle;

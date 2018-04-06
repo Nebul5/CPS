@@ -10,10 +10,10 @@ using cps::MOVETO;
 // std::pair
 
 namespace cps {
-class Scaled {
+class Scaled : public Shape {
 public:
   using ScaleType = std::pair<double, double>;
-  using ShapePtr = Shape::ShapePtr;
+  using Shape::ShapePtr;
 
 private:
   ShapePtr shape;
