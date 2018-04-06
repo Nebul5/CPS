@@ -1,0 +1,23 @@
+HOW TO USE CPS
+
+CPS, (C to PostScript) is a language based loosely on C++ that translates to PostScript code.
+
+There are no parentheses or special characters and CPS files are delineated entirely by whitespace and the newline, "\n", character.
+
+
+CPS COMMANDS
+
+Polygon <Name> <Sides> <Side_Length> - Creates a polygon bound to Name with Sides number of sides that are all length Side_Length. The bottom side is always created parallel to the X axis.
+
+Sphere <Name> <Radius> <R> <G> <B> <X_Light> <Y_Light> <Z_Light> - Creates a sphere bound to Name, with RGB color R, G, B, that is shaded with white light originating at X, Y, and Z.
+
+move <X> <Y> - Shifts the current draw location by X and Y.
+
+rotate <Degrees> <About_X> <About_Y> <About_Z> - Rotates the current drawing plane by Degrees about the specified line.
+
+scale <X> <Y> - Scales the current drawing plane by X and Y.
+
+draw <Name> - Draws a shape that was previously declared and bound to Name.
+
+pop - Pops the last transformation off the stack. Transformations are rotate, scale and move. If multiple transformations are on the stack all of them will be used to transform objects when draw is called.
+

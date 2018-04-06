@@ -49,7 +49,7 @@ struct Vec4 {
 		return x * v.x + y * v.y + z * v.z;
 	}
 
-	// this X v
+	// cross product
 	Vec4 cross(Vec4 v) {
 		Vec4 newVec(y*v.z - z * v.y, z*v.x - x * v.z, x*v.y - y * v.x, 1.0);
 		return newVec;
@@ -57,11 +57,21 @@ struct Vec4 {
 
 	// makeUnit
 	void makeUnit() {
+		x *= 100;
+		y *= 100;
+		z *= 100;
+
 		double m = sqrt(x*x + y * y + z * z);
 		if (m > 1) {
-			x /= m;
-			y /= m;
-			z /= m;
+			if (x != 0) {
+				x /= m;
+			}
+			if (y != 0) {
+				y /= m;
+			}
+			if (z != 0) {
+				z /= m;
+			}
 		}
 	}
 
@@ -105,6 +115,19 @@ struct Mat4 {
 
 		Vec4 newVec(x, y, z, w);
 		return newVec;
+	}
+
+	Mat4 operator*(Mat4 & v) {
+		std::vector<double> newMatVec(16, 0.0);
+		for (auto i = 0; i< 16; i += 4) {
+			newMatVec[i+0] = v[i] * m[0] + v[i + 1] * m[4] + v[i + 2] * m[8] + v[i + 3] * m[12];
+			newMatVec[i+1] = v[i] * m[1] + v[i + 1] * m[5] + v[i + 2] * m[9] + v[i + 3] * m[13];
+			newMatVec[i+2] = v[i] * m[2] + v[i + 1] * m[6] + v[i + 2] * m[10] + v[i + 3] * m[14];
+			newMatVec[i+3] = v[i] * m[3] + v[i + 1] * m[7] + v[i + 2] * m[11] + v[i + 3] * m[15];
+		}
+
+		Mat4 newMat(newMatVec);
+		return newMat;
 	}
 
 	Mat4 transpose() {
@@ -198,6 +221,7 @@ struct Sphere : Shape {
 	Sphere(double r, Vec4 c, Vec4 l) {
 		type = "Sphere";
 		color = c;
+		color.makeUnit();
 		lightVec = l;
 
 		radius = r;
@@ -230,6 +254,7 @@ struct Sphere : Shape {
 				Vec4 b = upperRing1 - lowerRing1;
 
 				Vec4 c = a.cross(b);
+				c.makeUnit();
 				normals.push_back(c);
 			}
 		}
@@ -238,7 +263,11 @@ struct Sphere : Shape {
 	// draw the sphere with the given transformations
 	std::string draw(Mat4 transform) {
 		Vec4 v = transform * points[0];
-		std::string out = ""; // std::to_string(v.x) + " " + std::to_string(v.y) + " " + " moveto\n";
+		Vec4 lColor(1, 1, 1, 1);
+		Vec4 camera(0, 0, 1, 1);
+		double hardness = 0.2; // For specular
+
+		std::string out = "";
 		int count = 0;
 		int normalIndex = 0;
 		std::string buffer = "";
@@ -267,25 +296,53 @@ struct Sphere : Shape {
 			buffer += std::to_string(v.y);
 			buffer += " lineto\n";
 
-			if (normals[normalIndex].z < 0) {
+			// Need the transformed normals in order to cull the right faces
+			Vec4 normal = normals[normalIndex];
+			Vec4 tNormal = transform * normal;
+
+			if (tNormal.z < 0) {
 				buffer = "";
 			}
 			else {
 				out += buffer;
-				double xComp = normals[normalIndex].x;
-				double yComp = normals[normalIndex].y;
-				double zComp = normals[normalIndex].z;
+				double xComp = normal.x;
+				double yComp = normal.y;
+				double zComp = normal.z;
 				
 				Vec4 UnitVec(xComp, yComp, zComp, 1.0);
 				UnitVec.makeUnit();
 
+				// Do blinn-phong shading
+				double camAngle = UnitVec.dot(camera);
 				double lambCos = UnitVec.dot(lightVec);
+				double diffAngle = lambCos - camAngle;
+				diffAngle = sqrt(diffAngle*diffAngle);
+				Vec4 specular(0, 0, 0, 1.0);
+				Vec4 diffuse(1.0 + 1.0*lambCos, 1.0 + 1.0*lambCos, 1.0 + 1.0*lambCos, 1.0);
+				
+				if ( lambCos >= 0.0 ) {
+					specular.x = ((lColor.x * diffAngle) - lColor.x)*hardness;
+					specular.y = ((lColor.y * diffAngle) - lColor.y)*hardness;
+					specular.z = ((lColor.z * diffAngle) - lColor.z)*hardness;
 
-				out += std::to_string(color.x + color.x*lambCos);
+					if (specular.x < 0.0) {
+						specular.x = 0.0;
+					}
+					if (specular.y < 0.0) {
+						specular.y = 0.0;
+					}
+					if (specular.z < 0.0) {
+						specular.z = 0.0;
+					}
+				}
+
+				Vec4 finalColor(diffuse.x*color.x + specular.x, diffuse.y*color.y + specular.y, diffuse.z*color.z + specular.z, 1.0);
+
+				out += std::to_string(finalColor.x);
 				out += " ";
-				out += std::to_string(color.y + color.y*lambCos);
+				out += std::to_string(finalColor.y);
 				out += " ";
-				out += std::to_string(color.z + color.z*lambCos);
+				out += std::to_string(finalColor.z);
 				out += " setrgbcolor ";
 				out += " closepath ";
 				out += " fill\n";
@@ -298,6 +355,7 @@ struct Sphere : Shape {
 			}
 			normalIndex++;
 		}
+		out += " 0 0 0 setrgbcolor ";
 		return out;
 	}
 };
@@ -316,6 +374,7 @@ struct Lexer {
 		data = l.data;
 	}
 
+	// Lex a string
 	void Lex(std::string source){
 		std::stringstream s(source);
 		std::string token;
@@ -325,6 +384,7 @@ struct Lexer {
 		}
 	}
 
+	// Lex a file
 	void Lex(std::fstream & source) {
 		std::string token;
 		index = 0;
@@ -333,10 +393,12 @@ struct Lexer {
 		}
 	}
 
+	// Reset the index
 	void reset() {
 		index = 0;
 	}
 
+	// Return the current lexeme and increment the index
 	std::string next() {
 		if (index == data.size()) {
 			return "EOF";

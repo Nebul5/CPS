@@ -53,6 +53,11 @@ Mat4 makeScale(double x, double y, double z) {
 
 // makeRotation
 Mat4 makeRotation(double radians, double x, double y, double z) {
+	Vec4 unit(x, y, z, 1.0);
+	unit.makeUnit();
+	x = unit.x;
+	y = unit.y;
+	z = unit.z;
 	double c = cos(radians);
 	double s = sin(radians);
 
@@ -122,7 +127,7 @@ void Program::compile(std::string filename) {
 
 // interpret, takes a string of source code and converts it to postscript
 void Program::interpret() {
-	transformations.push_back(makePerspective(60, 1, 0.0, 100));
+	transformations.push_back(makePerspective(40, 1, 0.0, 100));
 	std::string token = Code.next();
 	while(token!="EOF"){
 		if (token == "draw") {
@@ -132,6 +137,21 @@ void Program::interpret() {
 			double xTrans = Code.num();
 			double yTrans = Code.num();
 			transformations.push_back(makeTranslation(xTrans, yTrans, 0.0));
+		}
+		else if (token == "rotate") {
+			double angle = Code.num() * (3.14159 / 180);
+			double x = Code.num();
+			double y = Code.num();
+			double z = Code.num();
+			transformations.push_back(makeRotation(angle, x, y, z));
+		}
+		else if (token == "scale") {
+			double xScal = Code.num();
+			double yScal = Code.num();
+			transformations.push_back(makeScale(xScal, yScal, 1));
+		}
+		else if (token == "pop") {
+			transformations.pop_back();
 		}
 		else if (token == "Circle") {
 			// TODO
@@ -207,20 +227,10 @@ void Program::parseShape() {
 	else if (token == "horizontal") {
 		parseHorizontal();
 	}
-	else if (token == "rotate") {
-		transformations.push_back(makeRotation(Code.num(), 0, 0, 1));
-		parseShape();
-	}
-	else if (token == "scale") {
-		double xScal = Code.num();
-		double yScal = Code.num();
-		transformations.push_back(makeScale(xScal, yScal, 1));
-		parseShape();
-	}
 	else {
 		Mat4 t = makeIdentity();
 		for (auto i = 0; i < transformations.size(); i++) {
-			t = t + transformations[i];
+			t = t * transformations[i];
 		}
 		if (Objects[token]->type == "Polygon") {
 			Lexer shapeLex;
@@ -251,21 +261,11 @@ void Program::parseVertical() {
 		transformations.pop_back();
 		return;
 	}
-	else if (token == "rotate") {
-		transformations.push_back(makeRotation(Code.num(), 0, 0, 1));
-		parseVertical();
-	}
-	else if (token == "scale") {
-		double xScal = Code.num();
-		double yScal = Code.num();
-		transformations.push_back(makeScale(xScal, yScal, 1));
-		parseVertical();
-	}
 	else {
 		Mat4 shift = makeTranslation(0, Objects[token]->bound, 0);
 		Mat4 t = makeIdentity() + shift;
 		for (auto i = 0; i < transformations.size(); i++) {
-			t = t + transformations[i];
+			t = t * transformations[i];
 		}
 		if (Objects[token]->type == "Polygon") {
 			Parsed.push_back(dynamic_cast<Polygon*>(Objects[token])->draw(t));
@@ -283,21 +283,11 @@ void Program::parseHorizontal() {
 		transformations.pop_back();
 		return;
 	}
-	else if (token == "rotate") {
-		transformations.push_back(makeRotation(Code.num(), 0, 0, 1));
-		parseHorizontal();
-	}
-	else if (token == "scale") {
-		double xScal = Code.num();
-		double yScal = Code.num();
-		transformations.push_back(makeScale(xScal, yScal, 1));
-		parseHorizontal();
-	}
 	else {
 		Mat4 shift = makeTranslation(Objects[token]->bound, 0, 0);
 		Mat4 t = makeIdentity() + shift;
 		for (auto i = 0; i < transformations.size(); i++) {
-			t = t + transformations[i];
+			t = t * transformations[i];
 		}
 		if (Objects[token]->type == "Polygon") {
 			Parsed.push_back(dynamic_cast<Polygon*>(Objects[token])->draw(t));
