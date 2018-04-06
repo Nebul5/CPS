@@ -2,28 +2,25 @@
 #define SHAPE_H
 
 #include <string>
+#include<initializer_list>
+using std::initializer_list;
 // std::string
 #include <utility>
 // std::pair
-#include <memory>
-// std::shared_ptr
-
-#include <initializer_list>
-// std::initializer_list
 
 // This is the Shape Base class that Circle, Rectangle and Regular Polygon
 // Inherit from
 namespace cps {
 class Shape {
 public:
-  using BoundBoxType = std::pair<double, double>;
-  using PointType = std::pair<int, int>;
-  using ShapePtr = std::shared_ptr<Shape>;
+  using BoundBoxType = std::pair<unsigned int, unsigned int>;
+  using PointType = std::pair<unsigned int, unsigned int>;
 
 protected:
   BoundBoxType bound_box;  // bound_Box(width,height)
   PointType current_point; // current_Point(x,y)
   PointType starting_point;
+  std::string scale_str = "1 1 scale";
   std::string x_coord_str = "x_coord";
   std::string y_coord_str = "y_coord";
 
@@ -31,26 +28,29 @@ public:
   Shape() = default;
   ~Shape() = default;
   Shape(BoundBoxType bound_box, PointType current_point);
-  void scale(double x_scale, double y_scale);
-  virtual void rotate(int rotation_Angle);
-  virtual void vertical(const std::initializer_list<Shape> &list);
+  void scale(double x_Scale, double y_Scale);
+  virtual void rotate(unsigned int rotation_Angle);
+  virtual void vertical(const initializer_list<Shape> & list); 
   virtual void horizontal();
   void layer();
 
-  BoundBoxType maxDimensions(const std::initializer_list<Shape> &list);
+<<<<<<< HEAD
+pair<int, int> max_Dimension(const initializer_list<Shape> &list)
 
+
+  virtual std::string toPostScript() = 0;
+
+  BoundBoxType getBoundBox();
+  PointType getCurrentPoint();
+   BoundBoxType getBoundBox()const;
+  PointType getCurrentPoint()const;
+=======
   virtual std::string toPostScript();
 
   BoundBoxType getBoundBox();
   PointType getCurrentPoint();
-  BoundBoxType getBoundBox() const;
-  PointType getCurrentPoint() const;
-
-  void setBoundBox(BoundBoxType bound_box);
-  virtual void setCurrentPoint(PointType new_point);
-  PointType getStartingPoint();
-
-  void rotateBoundBox(int angle);
+  void setCurrentPoint(PointType new_point);
+>>>>>>> e24dd5763f4aabdbe92dbb86bb2b213b421ebc94
 };
 
 // Stores a syntax tree representing a postscript program

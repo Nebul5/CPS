@@ -4,7 +4,7 @@
 % No logic only drawing in PostScript; figure out all the logic in C++ or during the Interpretation process keep PostScript Simple
 
 
-%%Pages: 6
+%%Pages: 8
 %%Page: 1 1 % circle demo
 
 /circle {
@@ -22,11 +22,13 @@ x y circle
  % assumes a cursor starting position is in the center of the shape
 /h 50 def
 /w 200 def
+/x 300 def
+/y 400 def
  /rectangle {
 gsave
 newpath % start in top right corner with drawing
  moveto
-w 2 div h 2 div translate
+w 2 div x add h 2 div y add moveto
 -1 w mul 0 rlineto
 0 -1 h mul rlineto   %Is there a better way to do -h or h steps down?
 w 0 rlineto
@@ -35,7 +37,8 @@ stroke
 grestore
  } def
 
-300 400 rectangle
+x y rectangle
+
 showpage
 
  %%Page: 3 3 % polygon demo with hexagon demo still needs to be adjusted to have the correct placement relative to Bounding Box
@@ -133,17 +136,17 @@ grestore
 showpage
 
 
- %%Page: 7 7 % A circle with scale so that it is a horizontal ellipse
-
+ %%Page: 7 7 % A layer of a circle, triangle and then a rectangle
 /x 300 def
 /y 300 def
 
- /circle {
+/circle {
 newpath 
-50 0 360 arc  % Radius start_ang Final_ang
+43.3 0 360 arc  % Radius start_ang Final_ang
 stroke } def 
 
 x y circle
+
 
 /side 100 def
 /n 3 def
@@ -162,8 +165,101 @@ grestore
  } def
 
 /pi 3.14159265 def
+/sine pi n div sin def
+/cosine pi n div cos def
+/tan sine cosine div def
 
-/apothem s 2 div | pi n div tan div def %  apothem = (s/2)/tan(pi/n);
-x side 2 div sub y apothem sub polygon % draw the triangle
+%  /apothem side 2 div tan div def %  apothem = (s/2)/tan(pi/n);  apothem does not currently work. I had to hand calc the 28.867
+%x side 2 div sub y apothem sub polygon % draw the triangle
+ x side 2 div sub y 28.867 sub polygon
+ 
+
+/h 43.3 def
+/w 200 def
+ /rectangle {
+gsave
+newpath % start in top right corner with drawing
+ moveto
+ w 2 div x add h 2 div y add moveto
+-1 w mul 0 rlineto
+0 -1 h mul rlineto   %Is there a better way to do -h or h steps down?
+w 0 rlineto
+closepath
+stroke
+grestore
+ } def
+
+ x y rectangle
+
+
+showpage
+
+%%Page: 8 8 % Confirms all 3 types of Polygons that they are centered when layered
+/x 300 def
+/y 300 def
+
+
+
+/side 100 def
+/n 6 def
+/ExtAngle 360 n div def
+ /polygon{
+ gsave
+newpath
+moveto
+n 1 sub{
+side 0 rlineto % add line
+ExtAngle rotate
+} repeat
+closepath 
+stroke
+grestore
+ } def
+
+/pi 3.14159265 def
+/sine pi n div sin def
+/cosine pi n div cos def
+/tan sine cosine div def
+
+%  /apothem side 2 div tan div def %  apothem = (s/2)/tan(pi/n);  apothem does not currently work. I had to hand calc the 28.867
+%x side 2 div sub y apothem sub polygon % draw the triangle
+
+newpath
+100 300 moveto
+600 300 lineto 
+stroke
+
+newpath
+300 600 moveto
+300 100 lineto
+stroke
+/apothem 1.732 side mul 2 div def
+ x side 2 div sub y apothem sub polygon
+ 
+
+/n 4 def
+/ExtAngle 360 n div def
+ x side 2 div sub y side 2 div sub polygon
+
+ /n 3 def
+/ExtAngle 360 n div def
+ x side 2 div sub y side 0.433 mul sub polygon
+
+/h 86.6 def
+/w 100 def
+ /rectangle {
+gsave
+newpath % start in top right corner with drawing
+ moveto
+ w 2 div x add h 2 div y add moveto
+-1 w mul 0 rlineto
+0 -1 h mul rlineto   %Is there a better way to do -h or h steps down?
+w 0 rlineto
+closepath
+stroke
+grestore
+ } def
+
+ x y rectangle
 
 showpage
