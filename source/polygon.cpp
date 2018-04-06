@@ -73,21 +73,27 @@ void Polygon::setCurrentPoint(PointType new_point) {
   setStartingPoint();
 }
 void Polygon::rotateStartingPoint(int angle) {
-  double angle_in_radians = ((double)(angle % (360 / number_sides))) * RADIAN;
   double xs = starting_point.first;
   double ys = starting_point.second;
 
   double x = current_point.first;
   double y = current_point.second;
 
-  xs = xs - x;
-  ys = ys - y;
+  double apothem = y - ys;
+	double halfSide = x - xs;
 
-  double x2 = xs * cos(angle_in_radians) - ys * sin(angle_in_radians);
-  double y2 = xs * sin(angle_in_radians) + ys * cos(angle_in_radians);
-
-  starting_point.first = x + (int)x2;
-  starting_point.second = y + (int)y2;
+	if (angle == 90) {
+		starting_point.first = x + apothem;
+		starting_point.second = y - halfSide;
+	}
+	else if (angle == 180) {
+		starting_point.first = x - apothem;
+		starting_point.second = y + halfSide;
+	}
+	else if (angle == 270) {
+		starting_point.first = x + halfSide;
+		starting_point.second = y + apothem;
+	}
 }
 
 /*Polygon cps::getPolygon(Shape::PointType current_point,
