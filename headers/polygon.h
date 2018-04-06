@@ -38,9 +38,10 @@ public:
 public:
   int getNumberOfSides();
   int getSideLength();
-  const PointType getStartingPoint();
+  // const PointType getStartingPoint();
   void setStartingPoint();
   virtual void setCurrentPoint(PointType new_point) override;
+  void rotateStartingPoint(int angle);
 };
 
 Shape::BoundBoxType make_Bounding_Box(int number_sides, int side_length);

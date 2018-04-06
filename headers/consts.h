@@ -5,7 +5,9 @@
 // std::string
 
 namespace cps {
+static const double RADIAN = 3.1415 / 180.0;
 static const std::string MOVETO = "moveto\n";
+static const std::string ROTATE = "rotate\n";
 static const std::string DRAW_RECTANGLE = "/h height def\n\
 /w width def\n\
 /x x_coord def\n\

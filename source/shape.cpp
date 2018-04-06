@@ -9,6 +9,7 @@ using std::initializer_list;
 #include <utility>
 using std::make_pair;
 using std::pair;
+using std::swap;
 
 Shape::Shape(BoundBoxType bound_box, PointType current_point)
     : bound_box(bound_box), current_point(current_point) {}
@@ -44,7 +45,13 @@ Shape::BoundBoxType Shape::maxDimensions(const initializer_list<Shape> &list) {
   }
   return max_dimensions;
 }
+void Shape::rotateBoundBox(int angle) {
+  if (angle == 90 || angle == 270) {
+    swap(bound_box.first, bound_box.second);
+  }
+}
 
+Shape::PointType Shape::getStartingPoint() { return starting_point; }
 // Program constructor, takes a string of source code
 Program::Program(std::string source) { interpret(source); }
 

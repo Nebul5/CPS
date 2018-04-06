@@ -48,6 +48,9 @@ public:
 
   void setBoundBox(BoundBoxType bound_box);
   virtual void setCurrentPoint(PointType new_point);
+  PointType getStartingPoint();
+
+  void rotateBoundBox(int angle);
 };
 
 // Stores a syntax tree representing a postscript program

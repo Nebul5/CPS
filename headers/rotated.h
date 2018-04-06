@@ -1,17 +1,35 @@
 #ifndef ROTATED_H
 #define ROTATED_H
+#include "shape.h"
+// cps::Shape
+#include <string>
+// std::string
+#include <memory>
+// std::shared_ptr
+#include <utility>
+// std::pair
 
-class Rotated
-{
-private: 
-	int degree;
+namespace cps {
+class Rotated {
+public:
+  using PointType = Shape::PointType;
+  using ShapePtr = Shape::ShapePtr;
+
+private:
+  int rotation_angle;
+  ShapePtr shape;
+  std::string rotation_str;
 
 public:
-	pair<int, int> start_Rotate_Poly(pair<int, int> current_point, pair<int, int> start_point, int degree, double side, int n);
-	pair<int, int> Rotated::rotate_Box(pair<int,int> bBox, int degree, int n, double side);
+  Rotated() = default;
+  ~Rotated() = default;
+  Rotated(ShapePtr shape, int angle);
+  ShapePtr getShape();
+  std::string toPostScript();
+
+private:
+  void getRotationStr();
+  bool isValidAngle(int angle);
 };
-
-
-
-
+} // namespace cps
 #endif

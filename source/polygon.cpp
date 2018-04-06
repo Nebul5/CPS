@@ -1,3 +1,5 @@
+#include "../headers/consts.h"
+using cps::RADIAN;
 #include "../headers/shape.h"
 using cps::Shape;
 #include "../headers/polygon.h"
@@ -23,7 +25,10 @@ Polygon::Polygon(BoundBoxType bound_box, PointType current_point,
   setStartingPoint();
 }
 
-void Polygon::rotate(int rotation_angle) {}
+void Polygon::rotate(int rotation_angle) {
+  rotateStartingPoint(rotation_angle);
+  rotateBoundBox(rotation_angle);
+}
 
 void Polygon::horizontal() {}
 
@@ -52,7 +57,6 @@ bool Polygon::operator==(const Polygon &rhs) const {
 
 int Polygon::getNumberOfSides() { return number_sides; }
 int Polygon::getSideLength() { return side_length; }
-const Shape::PointType Polygon::getStartingPoint() { return starting_point; }
 
 /* This function Takes the current_point and returns the Point from which to
    start drawing the Regular Polygon so that A side is always centered
@@ -68,6 +72,24 @@ void Polygon::setCurrentPoint(PointType new_point) {
   current_point = new_point;
   setStartingPoint();
 }
+void Polygon::rotateStartingPoint(int angle) {
+  double angle_in_radians = ((double)(angle % (360 / number_sides))) * RADIAN;
+  double xs = starting_point.first;
+  double ys = starting_point.second;
+
+  double x = current_point.first;
+  double y = current_point.second;
+
+  xs = xs - x;
+  ys = ys - y;
+
+  double x2 = xs * cos(angle_in_radians) - ys * sin(angle_in_radians);
+  double y2 = xs * sin(angle_in_radians) + ys * cos(angle_in_radians);
+
+  starting_point.first = x + (int)x2;
+  starting_point.second = y + (int)y2;
+}
+
 /*Polygon cps::getPolygon(Shape::PointType current_point,
                         int number_sides, int side_length) {
   auto denominator = sin(PI / double(number_sides));
