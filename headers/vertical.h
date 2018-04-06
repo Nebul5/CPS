@@ -12,24 +12,24 @@
 // std::pair
 
 namespace cps {
-class Vertical {
-  using BoundBoxType = std::pair<double, double>;
-  using ShapePtr = Shape::ShapePtr;
+class Vertical : public Shape {
+  using Shape::BoundBoxType;
+  using Shape::PointType;
+  using Shape::ShapePtr;
 
 private:
   std::vector<ShapePtr> vertical_shapes;
-  BoundBoxType bound_box;
 
 public:
   Vertical() = default;
   ~Vertical() = default;
   Vertical(std::initializer_list<std::shared_ptr<Shape>> shapes);
   std::string toPostScript();
-  void assembleShapes();
   const std::vector<std::shared_ptr<Shape>> getShapes();
   const BoundBoxType getBoundBox();
 
 private:
+  void assembleShapes();
   int getNextYCoordinate(int i);
 };
 } // namespace cps

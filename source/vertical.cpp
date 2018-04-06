@@ -33,26 +33,20 @@ int Vertical::getNextYCoordinate(int i) {
 }
 
 void Vertical::assembleShapes() {
-  auto current_point = make_pair<int, int>(0, 0);
-  int x;
-  double width = 0;
-  double height = 0;
-  int y;
-  for (int i = 1; i < vertical_shapes.size(); ++i) {
+  auto active_point = make_pair<int, int>(0, 0);
+  int x, y;
+  double width, height = 0;
+  current_point = vertical_shapes[0]->getCurrentPoint();
+  for (auto i = 1; i < vertical_shapes.size(); ++i) {
     x = vertical_shapes[0]->getCurrentPoint().first;
-    cout << "x was " << x << endl;
     width = max(width, vertical_shapes[i]->getBoundBox().first);
     y = getNextYCoordinate(i);
-    current_point = pair<int, int>(x, y);
-    cout << "y was " << y << endl;
-    cout << "calculated current point " << i << " was " << x << ", " << y
-         << endl;
-    vertical_shapes[i]->setCurrentPoint(current_point);
+    active_point = PointType(x, y);
+    vertical_shapes[i]->setCurrentPoint(active_point);
   }
   height = (vertical_shapes.back()->getCurrentPoint().second +
             vertical_shapes.back()->getBoundBox().second / 2.0);
-  bound_box = Shape::BoundBoxType(width, height);
-  cout << "width was " << width << endl;
+  bound_box = BoundBoxType(width, height);
 }
 
 string Vertical::toPostScript() {
