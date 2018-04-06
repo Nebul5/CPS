@@ -223,6 +223,7 @@ struct Sphere : Shape {
 		color = c;
 		color.makeUnit();
 		lightVec = l;
+		lightVec.makeUnit();
 
 		radius = r;
 		double PI = 3.14159;
@@ -265,7 +266,7 @@ struct Sphere : Shape {
 		Vec4 v = transform * points[0];
 		Vec4 lColor(1, 1, 1, 1);
 		Vec4 camera(0, 0, 1, 1);
-		double hardness = 0.2; // For specular
+		double hardness = 0.4; // For specular
 
 		std::string out = "";
 		int count = 0;
