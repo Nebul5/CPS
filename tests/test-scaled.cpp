@@ -11,7 +11,7 @@ using cps::Scaled;
 using std::cout;
 using std::endl;
 #include <fstream>
-using std::fstream;
+using std::ofstream;
 #include <memory>
 using std::make_shared;
 using std::shared_ptr;
@@ -32,7 +32,7 @@ TEST_CASE(" testing scaled shape") {
     REQUIRE(scaled_polygon.getShape() == test_polygon);
     cout << "get scaled ps_polygon" << endl;
     cout << scaled_polygon.toPostScript() << endl;
-    fstream to_ps;
+    ofstream to_ps;
     to_ps.open("test-scaled.ps");
     auto ps_str = test_polygon->toPostScript() + scaled_polygon.toPostScript();
     to_ps << ps_str;

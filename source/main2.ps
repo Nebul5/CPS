@@ -1,7 +1,7 @@
-/x 150 def
-/y 131 def
-/ns 5 def
-/sl 100 def
+/x 60 def
+/y 76 def
+/ns 3 def
+/sl 80 def
 /ExtAngle 360 ns div def
 gsave
 newpath
@@ -44,3 +44,35 @@ ExtAngle rotate
 closepath
 stroke
 grestore
+
+/x 150 def
+/y 231 def
+/ns 5 def
+/sl 100 def
+/ExtAngle 360 ns div def
+gsave
+newpath
+x y moveto
+ns 1 sub{
+sl 0 rlineto % add line
+ExtAngle rotate
+} repeat
+closepath
+stroke
+grestore
+/x 285 def
+/y 249 def
+/ns 4 def
+/sl 100 def
+/ExtAngle 360 ns div def
+gsave
+newpath
+x y moveto
+ns 1 sub{
+sl 0 rlineto % add line
+ExtAngle rotate
+} repeat
+closepath
+stroke
+grestore
+
