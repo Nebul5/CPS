@@ -21,6 +21,8 @@ Rotated::Rotated(ShapePtr shape, int angle) {
   this->shape = shape;
   rotation_angle = angle;
   shape->rotate(rotation_angle);
+  bound_box = shape->getBoundBox();
+  current_point = shape->getCurrentPoint();
   getRotationStr();
 }
 bool Rotated::isValidAngle(int angle) {

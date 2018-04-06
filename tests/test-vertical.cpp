@@ -8,7 +8,7 @@ using cps::Vertical;
 #include "catch.hpp"
 
 #include <fstream>
-using std::fstream;
+using std::ofstream;
 #include <iostream>
 using std::cout;
 using std::endl;
@@ -34,7 +34,7 @@ TEST_CASE(" testing vertical shape") {
     REQUIRE(vertical_polygon.getBoundBox().second >= expected_height);
     REQUIRE(vertical_polygon.getBoundBox().second <= expected_height + 1.0);
 
-    fstream to_ps;
+    ofstream to_ps;
     to_ps.open("test-vertical.ps");
     if (not to_ps.is_open()) {
       cout << "could not open file" << endl;

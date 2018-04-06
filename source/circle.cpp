@@ -16,7 +16,7 @@ using std::initializer_list;
 Circle::Circle(int radius, BoundBoxType bound_box, PointType current_point)
     : radius(radius), Shape(bound_box, current_point) {}
 
-void Circle::rotate(int rotation_angle) {}
+void Circle::rotate(int rotation_angle) { rotateBoundBox(rotation_angle); }
 
 void Circle::horizontal() {}
 
@@ -36,7 +36,7 @@ std::string Circle::toPostScript() {
 int Circle::getRadius() { return radius; }
 
 Circle cps::getCircle(Shape::PointType current_point, int radius) {
-  auto bound_box = make_pair<int, int>(radius * 2, radius * 2);
+  auto bound_box = make_pair<double, double>(radius * 2.0, radius * 2.0);
 
   return Circle(radius, bound_box, current_point);
 }

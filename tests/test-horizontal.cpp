@@ -8,7 +8,7 @@ using cps::Horizontal;
 #include "catch.hpp"
 
 #include <fstream>
-using std::fstream;
+using std::ofstream;
 #include <iostream>
 using std::cout;
 using std::endl;
@@ -20,7 +20,7 @@ using std::make_pair;
 using std::pair;
 
 TEST_CASE("testing horizontal shape") {
-  SECTION("testing constructors") {
+  SECTION("testing constructors and wrting to postscript") {
     auto leftmost_current_point = make_pair(200, 200);
     auto dummy_current_point = make_pair(0, 0);
 
@@ -34,8 +34,7 @@ TEST_CASE("testing horizontal shape") {
     double expected_width = 350.0;
     REQUIRE(horizontal_polygon.getBoundBox().first >= expected_width);
     REQUIRE(horizontal_polygon.getBoundBox().first <= expected_width + 1);
-
-    fstream to_ps;
+    ofstream to_ps;
     to_ps.open("test-horizontal.ps");
     if (not to_ps.is_open()) {
       cout << "could not open file" << endl;
