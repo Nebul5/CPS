@@ -12,7 +12,7 @@ using std::abs;
 using std::make_pair;
 using std::pair;
 #include <fstream>
-using std::fstream;
+using std::ofstream;
 #include <iostream>
 using std::cout;
 using std::endl;
@@ -25,7 +25,6 @@ TEST_CASE("test polygon shape") {
     pair<int, int> current_point = make_pair(150, 150);
     int number_sides = 4;
     int side_length = 100;
-
     auto test_polygon =
         Polygon(bound_box, current_point, number_sides, side_length);
 
@@ -33,16 +32,6 @@ TEST_CASE("test polygon shape") {
     REQUIRE(test_polygon.getNumberOfSides() == number_sides);
     REQUIRE(test_polygon.getBoundBox() == bound_box);
     REQUIRE(test_polygon.getCurrentPoint() == current_point);
-    cout << " getting polygon post script " << endl;
-    cout << test_polygon.toPostScript() << endl;
-    fstream to_ps;
-    to_ps.open("test-polygon.ps");
-    if (not to_ps.is_open()) {
-      cout << "could not open file" << endl;
-    }
-    auto to_ps_str = test_polygon.toPostScript();
-    to_ps << to_ps_str;
-    to_ps.close();
   }
   SECTION("getPolygon function behaves") {
     pair<int, int> current_point = make_pair(100, 100);
@@ -102,5 +91,21 @@ TEST_CASE("test polygon shape") {
     // auto dstart = decagon.getStartingPoint(current_point, n4, side);
     REQUIRE(decagon.getStartingPoint().first == 250);
     REQUIRE(decagon.getStartingPoint().second == 146);
+  }
+  SECTION("writng postscript file") {
+    pair<int, int> current_point = make_pair(200, 200);
+    int number_sides = 4;
+    int side_length = 100;
+    auto test_polygon = getPolygon(current_point, number_sides, side_length);
+    cout << " getting polygon post script " << endl;
+    cout << test_polygon.toPostScript() << endl;
+    ofstream to_ps;
+    to_ps.open("test-polygon.ps");
+    if (not to_ps.is_open()) {
+      cout << "could not open file" << endl;
+    }
+    auto to_ps_str = test_polygon.toPostScript();
+    to_ps << to_ps_str;
+    to_ps.close();
   }
 }

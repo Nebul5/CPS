@@ -17,7 +17,7 @@ Rectangle::Rectangle(BoundBoxType bound_box, PointType current_point)
     : width(bound_box.first), height(bound_box.second),
       Shape(bound_box, current_point) {}
 
-void Rectangle::rotate(int rotation_angle) {}
+void Rectangle::rotate(int rotation_angle) { rotateBoundBox(rotation_angle); }
 
 void Rectangle::horizontal() {}
 
