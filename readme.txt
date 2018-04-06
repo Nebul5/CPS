@@ -39,6 +39,7 @@ test-'name'.cpp - testing file for class specified by filename
 test-'name'.ps - postscript file written by the corresponding testing program
 
 Other Postscript files:
+PSTest.ps is a pretty slick postscript file created by Jake via his CPS compiler
 Other postscript are demonstrations of proper hypothetical output of each CPS class
 See ReadMe PostScript_Samples
 
