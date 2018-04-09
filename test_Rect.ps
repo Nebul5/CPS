@@ -1,26 +1,33 @@
-%Tests Odd Regular Polygons Bounding Box and Start point.
 
+
+%Tests Rectangle  Class Which also is the Same as spacer class
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Defintions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 /x 300 def
 /y 300 def
 
+/h 100 def
+/w 200 def
 
-
-/side 100 def
-/n 7 def
-/ExtAngle 360 n div def
- /polygon{
- gsave
-newpath
-moveto
-n 1 sub{
-side 0 rlineto % add line
-ExtAngle rotate
-} repeat
-closepath 
+ /rectangle {
+gsave
+newpath % start in top right corner with drawing
+ translate
+ w 2 div  h 2 div moveto
+-1 w mul 0 rlineto
+0 -1 h mul rlineto   %Is there a better way to do -h or h steps down?
+w 0 rlineto
+closepath
 stroke
 grestore
  } def
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Draw Axes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 newpath
 100 300 moveto
@@ -31,73 +38,39 @@ newpath
 300 600 moveto
 300 100 lineto
 stroke
-/apothem 1.732 side mul 2 div def
 
 
-  250 191 polygon % 7 sides
- 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Draw Rectangles
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-/n 5 def
-/ExtAngle 360 n div def
- 250 224 polygon % 5 sides
 
-/n 3 def
-/ExtAngle 360 n div def
- 250 257 polygon % 5 sides
 
-/h 219 def
-/w 224 def
- /rectangle {
+ x y rectangle % Regular Rectangle
+
+ /temp h def
+/h w def
+/w temp def
+
+x y rectangle % 90 degree rotation
+
+/temp h def
+/h w def
+/w temp def
+
 gsave
-newpath % start in top right corner with drawing
- moveto
- w 2 div x add h 2 div y add moveto
--1 w mul 0 rlineto
-0 -1 h mul rlineto   %Is there a better way to do -h or h steps down?
-w 0 rlineto
-closepath
-stroke
+  0.5 0.33 scale 
+  /x 600 def
+  /y 900 def
+  x y rectangle % rectangle scaled by (0.5x, 0.33x)
 grestore
- } def
-
- x y rectangle % bbox 7
 
 
-
-
-/h 153 def
-/w 163 def
- /rectangle {
 gsave
-newpath % start in top right corner with drawing
- moveto
- w 2 div x add h 2 div y add moveto
--1 w mul 0 rlineto
-0 -1 h mul rlineto   %Is there a better way to do -h or h steps down?
-w 0 rlineto
-closepath
-stroke
+  2 3 scale 
+  /x 150 def
+  /y 100 def
+  x y rectangle % rectangle scaled by (2x, 3x)
 grestore
- } def
-
- x y rectangle % bbox 5
-
- /h 86.6 def
-/w 100 def
- /rectangle {
-gsave
-newpath % start in top right corner with drawing
- moveto
- w 2 div x add h 2 div y add moveto
--1 w mul 0 rlineto
-0 -1 h mul rlineto   %Is there a better way to do -h or h steps down?
-w 0 rlineto
-closepath
-stroke
-grestore
- } def
-
- x y rectangle % bbox 3
-
 
 showpage

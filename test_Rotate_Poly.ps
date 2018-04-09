@@ -1,10 +1,14 @@
 
 %Tests the Bounding box calculations and starting point calculations for 
-%Regular Polygons with Sides Divisible by 4 and by 2
+%Regular Polygons with When Experiencing Rotations
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 /x 300 def
 /y 300 def
-/deg 36 def
+/deg 90 def
 
 
 /side 100 def
@@ -24,6 +28,9 @@ stroke
 grestore
  } def
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Draw Axes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 newpath
 100 300 moveto
@@ -35,24 +42,36 @@ newpath
 300 100 lineto
 stroke
 
-%300 200 polygon  % This is the starting point
+newpath
+100 500 moveto
+600 500 lineto 
+stroke
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Draw Rotated Shapes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+387 450 polygon  % Hexagon
 
 /n 4 def
 /ExtAngle 360 n div def
 
-%282 232 polygon
+350 450 polygon % Square
 
 /n 3 def
 /ExtAngle 360 n div def
 
 
-271 250 polygon
+329 250 polygon % Triangle
 
 /n 5 def
 /ExtAngle 360 n div def
 
-308 185 polygon
+369 250 polygon % Pentagon
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Draw Bounding Boxes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 /h 135 def
 /w 135 def
@@ -90,7 +109,7 @@ grestore
  } def
 
 
- x y rectangle % bbox 3
+% x y rectangle % bbox 3
 
 /h 223 def
 /w 217 def
@@ -109,6 +128,6 @@ grestore
 
 %/x 300 def
 %/y 300 def
- x y rectangle
+ %x y rectangle
 
 showpage

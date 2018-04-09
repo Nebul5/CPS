@@ -1,15 +1,25 @@
 
 
+%Tests the Bounding box calculations and starting point calculations for 
+%Regular Polygons with When Experiencing Rotations
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+/x 300 def
+/y 300 def
+/deg 90 def
+
 
 /side 100 def
-/n 3 def
+/n 6 def
 /ExtAngle 360 n div def
-
  /polygon{
  gsave
 newpath
 moveto
-%rotate
+deg rotate
 n 1 sub{
 side 0 rlineto % add line
 ExtAngle rotate
@@ -18,6 +28,10 @@ closepath
 stroke
 grestore
  } def
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Draw Axes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 newpath
 100 300 moveto
@@ -29,15 +43,92 @@ newpath
 300 100 lineto
 stroke
 
-279 238 polygon
+newpath
+100 500 moveto
+600 500 lineto 
+stroke
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Draw Rotated Shapes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+387 450 polygon  % Hexagon
+
+/n 4 def
+/ExtAngle 360 n div def
+
+350 450 polygon % Square
+
+/n 3 def
+/ExtAngle 360 n div def
+
+
+328 250 polygon % Triangle
+
+/n 5 def
+/ExtAngle 360 n div def
+
+369 250 polygon % Pentagon
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Draw Bounding Boxes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+/h 135 def
+/w 135 def
+ /rectangle {
 gsave
-120 rotate
-279 238 polygon
+newpath % start in top right corner with drawing
+ moveto
+ %deg rotate
+ w 2 div x add h 2 div y add moveto
+-1 w mul 0 rlineto
+0 -1 h mul rlineto   %Is there a better way to do -h or h steps down?
+w 0 rlineto
+closepath
+stroke
 grestore
-%120 rotate
-%300 400 polygon
+ } def
 
 
+ %x y rectangle % bbox 4
 
+/h 95 def
+/w 95 def
+ /rectangle {
+gsave
+newpath % start in top right corner with drawing
+ moveto
+ %deg rotate
+ w 2 div x add h 2 div y add moveto
+-1 w mul 0 rlineto
+0 -1 h mul rlineto   %Is there a better way to do -h or h steps down?
+w 0 rlineto
+closepath
+stroke
+grestore
+ } def
+
+
+% x y rectangle % bbox 3
+
+/h 223 def
+/w 217 def
+ /rectangle {
+gsave
+newpath % start in top right corner with drawing
+ moveto
+ w 2 div x add h 2 div y add moveto
+-1 w mul 0 rlineto
+0 -1 h mul rlineto   %Is there a better way to do -h or h steps down?
+w 0 rlineto
+closepath
+stroke
+grestore
+ } def
+
+%/x 300 def
+%/y 300 def
+ %x y rectangle
 
 showpage

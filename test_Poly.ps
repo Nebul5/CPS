@@ -1,10 +1,19 @@
+%!PS-Adobe-3.0
+
+
+%%Pages: 2
+%%Page: 1 1 % Polygons of even number of sides but not divisible by 4
 
 %Tests the Bounding box calculations and starting point calculations for 
 %Regular Polygons with Sides Divisible by 4 and by 2
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 /x 300 def
 /y 300 def
-
 
 
 /side 100 def
@@ -24,6 +33,10 @@ grestore
  } def
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Coordinate Axes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 newpath
 100 300 moveto
 600 300 lineto 
@@ -33,6 +46,11 @@ newpath
 300 600 moveto
 300 100 lineto
 stroke
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Draw n = 8; n = 10  (Both Divisible by 4 and not divisible by 4 cases)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 /apothem 1.732 side mul 2 div def
 
 
@@ -44,6 +62,9 @@ stroke
  250 179 polygon % 8 sides
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Draw Bounding Boxes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 /h 307 def
 /w 323 def
@@ -53,7 +74,7 @@ newpath % start in top right corner with drawing
  moveto
  w 2 div x add h 2 div y add moveto
 -1 w mul 0 rlineto
-0 -1 h mul rlineto   %Is there a better way to do -h or h steps down?
+0 -1 h mul rlineto   
 w 0 rlineto
 closepath
 stroke
@@ -61,9 +82,6 @@ grestore
  } def
 
  x y rectangle % bbox 10
-
-
-
 
 /h 241 def
 /w 241 def
@@ -83,3 +101,125 @@ grestore
  x y rectangle % bbox 8
 
 showpage
+
+%%Page: 2 2 % Polygons of odd number of sizes with bounding boxes
+
+%Tests Odd Regular Polygons Bounding Box and Start point.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+/x 300 def
+/y 300 def
+
+/side 100 def
+/n 7 def
+/ExtAngle 360 n div def
+ /polygon{
+ gsave
+newpath
+moveto
+n 1 sub{
+side 0 rlineto % add line
+ExtAngle rotate
+} repeat
+closepath 
+stroke
+grestore
+ } def
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Draw Axes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+newpath
+100 300 moveto
+600 300 lineto 
+stroke
+
+newpath
+300 600 moveto
+300 100 lineto
+stroke
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Draw Shapes n = 7; n = 5
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+/apothem 1.732 side mul 2 div def
+
+  250 191 polygon % 7 sides
+ 
+
+/n 5 def
+/ExtAngle 360 n div def
+ 250 224 polygon % 5 sides
+
+/n 3 def
+/ExtAngle 360 n div def
+ 250 257 polygon % 5 sides
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Draw Bounding Boxes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+/h 219 def
+/w 224 def
+ /rectangle {
+gsave
+newpath % start in top right corner with drawing
+ moveto
+ w 2 div x add h 2 div y add moveto
+-1 w mul 0 rlineto
+0 -1 h mul rlineto   %Is there a better way to do -h or h steps down?
+w 0 rlineto
+closepath
+stroke
+grestore
+ } def
+
+ x y rectangle % bbox 7
+
+
+/h 153 def
+/w 163 def
+ /rectangle {
+gsave
+newpath % start in top right corner with drawing
+ moveto
+ w 2 div x add h 2 div y add moveto
+-1 w mul 0 rlineto
+0 -1 h mul rlineto   %Is there a better way to do -h or h steps down?
+w 0 rlineto
+closepath
+stroke
+grestore
+ } def
+
+ x y rectangle % bbox 5
+
+ /h 86.6 def
+/w 100 def
+ /rectangle {
+gsave
+newpath % start in top right corner with drawing
+ moveto
+ w 2 div x add h 2 div y add moveto
+-1 w mul 0 rlineto
+0 -1 h mul rlineto   %Is there a better way to do -h or h steps down?
+w 0 rlineto
+closepath
+stroke
+grestore
+ } def
+
+ x y rectangle % bbox 3
+
+
+showpage
+

@@ -1,1 +1,86 @@
 %This is to test the Layered Shape
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%Definitions used
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+/x 300 def
+/y 300 def
+
+
+
+/side 100 def
+/n 6 def
+/ExtAngle 360 n div def
+ /polygon{
+ gsave
+newpath
+moveto
+n 1 sub{
+side 0 rlineto % add line
+ExtAngle rotate
+} repeat
+closepath 
+stroke
+grestore
+ } def
+
+/pi 3.14159265 def
+/sine pi n div sin def
+/cosine pi n div cos def
+/tan sine cosine div def
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%Coordinate Axes to Show Symmetry
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+newpath
+100 300 moveto
+600 300 lineto 
+stroke
+
+newpath
+300 600 moveto
+300 100 lineto
+stroke
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%Draw shapes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+/apothem 1.732 side mul 2 div def
+ x side 2 div sub y apothem sub polygon
+ 
+
+/n 4 def
+/ExtAngle 360 n div def
+ x side 2 div sub y side 2 div sub polygon
+
+ /n 3 def
+/ExtAngle 360 n div def
+ x side 2 div sub y side 0.433 mul sub polygon
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%Optional Bounding Rectangle Around Triangle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+/h 86.6 def
+/w 100 def
+ /rectangle {
+gsave
+newpath % start in top right corner with drawing
+ moveto
+ w 2 div x add h 2 div y add moveto
+-1 w mul 0 rlineto
+0 -1 h mul rlineto   %Is there a better way to do -h or h steps down?
+w 0 rlineto
+closepath
+stroke
+grestore
+ } def
+
+% x y rectangle  %Bounding rectangle around Triangle
+
+showpage

@@ -1,1 +1,123 @@
 %Here are all the Circle Shape tests
+
+%!PS-Adobe-3.0
+
+%ideas:  the cursor location is outside of the shape procedures
+% No logic only drawing in PostScript; figure out all the logic in C++ or during the Interpretation process keep PostScript Simple
+
+
+%%Pages: 2
+%%Page: 1 1 % circle demo
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Draw Basic Circle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+/circle {
+newpath 
+30 0 360 arc  % Radius start_ang Final_ang
+stroke } def 
+
+/x 300 def
+/y 300 def
+
+x y circle
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Draw Ellipse
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ /circle {
+newpath 
+50 0 360 arc  % Radius start_ang Final_ang
+stroke } def 
+
+
+
+gsave
+/x 300 def
+/y 450 def
+1 0.5 scale
+x y circle
+grestore
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Draw Bounding Boxes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ % assumes a cursor starting position is in the center of the shape
+/h 60 def
+/w 60 def
+/x 300 def
+/y 300 def
+ /rectangle {
+gsave
+newpath % start in top right corner with drawing
+ moveto
+w 2 div x add h 2 div y add moveto
+-1 w mul 0 rlineto
+0 -1 h mul rlineto   %Is there a better way to do -h or h steps down?
+w 0 rlineto
+closepath
+stroke
+grestore
+ } def
+
+x y rectangle
+
+/h 50 def
+/w 100 def
+/x 300 def
+/y 225 def  %Remember the scale variable affects the translation for x coordinates also
+
+x y rectangle
+
+ showpage
+
+%%Page: 2 2 % A circle with scale so that it is a horizontal ellipse
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ /rectangle {
+gsave
+newpath % start in top right corner with drawing
+ moveto
+w 2 div x add h 2 div y add moveto
+-1 w mul 0 rlineto
+0 -1 h mul rlineto   %Is there a better way to do -h or h steps down?
+w 0 rlineto
+closepath
+stroke
+grestore
+ } def
+
+/circle {
+
+newpath 
+50 0 360 arc  % Radius start_ang Final_ang
+stroke } def 
+
+/h 100 def
+/w 50 def
+/x 300 def
+/y 300 def
+x y rectangle % Bounding Box
+
+
+/x 600 def
+/y 300 def
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Ellipse with 90 Degree Rotations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+gsave
+0.5 1 scale
+x y circle
+grestore
+
+ showpage
