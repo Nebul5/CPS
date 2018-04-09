@@ -1,8 +1,10 @@
 /x 0 def
 /y 0 def
+/rad 100 def
 gsave
 newpath
 x y moveto
-0 0 100 0 360 arc
+x rad sub y rad 0 360 arc
 stroke
 grestore
+ 
