@@ -15,10 +15,6 @@
 
 namespace cps {
 class Circle : public Shape {
-public:
-  using Shape::BoundBoxType;
-  using Shape::PointType;
-
 private:
   int radius;
   const std::string str_radius = "radius";

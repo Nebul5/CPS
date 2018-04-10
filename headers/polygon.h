@@ -14,10 +14,6 @@
 
 namespace cps {
 class Polygon : public Shape {
-public:
-  using Shape::BoundBoxType;
-  using Shape::PointType;
-
 private:
   int number_sides;
   int side_length;

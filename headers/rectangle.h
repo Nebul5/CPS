@@ -13,10 +13,6 @@
 
 namespace cps {
 class Rectangle : public Shape {
-public:
-  using Shape::BoundBoxType;
-  using Shape::PointType;
-
 private:
   int width;
   int height;

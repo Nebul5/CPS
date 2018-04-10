@@ -13,10 +13,6 @@
 namespace cps {
 class Horizontal : public Shape {
 public:
-  using Shape::BoundBoxType;
-  using Shape::PointType;
-  using Shape::ShapePtr;
-
 private:
   std::vector<ShapePtr> horizontal_shapes;
 

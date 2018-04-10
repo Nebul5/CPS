@@ -13,7 +13,6 @@ namespace cps {
 class Scaled : public Shape {
 public:
   using ScaleType = std::pair<double, double>;
-  using Shape::ShapePtr;
 
 private:
   ShapePtr shape;

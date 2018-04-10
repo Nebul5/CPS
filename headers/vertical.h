@@ -13,10 +13,6 @@
 
 namespace cps {
 class Vertical : public Shape {
-  using Shape::BoundBoxType;
-  using Shape::PointType;
-  using Shape::ShapePtr;
-
 private:
   std::vector<ShapePtr> vertical_shapes;
 

@@ -11,10 +11,6 @@
 
 namespace cps {
 class Rotated : public Shape {
-public:
-  using Shape::PointType;
-  using Shape::ShapePtr;
-
 private:
   int rotation_angle;
   ShapePtr shape;
