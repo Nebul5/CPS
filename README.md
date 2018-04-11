@@ -12,7 +12,7 @@ The CPS language is a series of classes following the interpreter design pattern
 These two parts have not been merged and to some degree cross over in their use. This divergence is mostly due to lack of communication and differing interpretations of the deliverables requested for project 2.
 
 #### Other Documents:
-- See *HowToUseCPS.txt* for instructions on the CpsCompiler
+- See *CpsCompiler/HowToUseCPS.txt* for instructions on the CpsCompiler
 - See *Explanation of Testing Procedures* for esting procedures and a critque of the shape language specifications.
 - See *readme.txt* for a list of files and their purposes.
 - See *ReadMe PostScript_Samples* for an explanation of the postscript files in the top directory of this repo
