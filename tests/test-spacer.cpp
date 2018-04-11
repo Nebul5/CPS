@@ -10,9 +10,9 @@ using std::pair;
 
 TEST_CASE(" testing spacer shape ") {
   auto current_point = make_pair(200, 200);
-  double width = 100;
-  double height = 110;
-  auto correct_bound_box = make_pair(100.0, 110.0);
+  double width = 100.0;
+  double height = 110.0;
+  auto correct_bound_box = pair<double, double>(width, height);
   SECTION(" testing constructors ") {
     auto test_spacer = Spacer(current_point, width, height);
     REQUIRE(correct_bound_box == test_spacer.getBoundBox());

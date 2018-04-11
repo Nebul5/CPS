@@ -15,7 +15,7 @@ using std::pair;
 
 Spacer::Spacer(PointType current_point, double width, double height)
     : width(width), height(height),
-      Shape(current_point, make_pair(width, height)) {}
+      Shape(make_pair(width, height), current_point) {}
 string Spacer::toPostScript() {
   string ps_spacer = DRAW_SPACER;
   ps_spacer.replace(ps_spacer.find(str_width), str_width.length(),
