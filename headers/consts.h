@@ -8,6 +8,20 @@ namespace cps {
 static const double RADIAN = 3.1415 / 180.0;
 static const std::string MOVETO = "moveto\n";
 static const std::string ROTATE = "rotate\n";
+static const std::string DRAW_SPACER = "/h height def\n\
+/w width def\n\
+/x x_coord def\n\
+/y y_coord def\n\
+gsave\n\
+newpath\n\
+x y moveto\n\
+w 2 div h 2 div translate\n\
+-1 w mul 0 rmoveto\n\
+0 -1 h mul rmoveto\n\
+w 0 rmoveto\n\
+closepath\n\
+stroke\n\
+grestore\n";
 static const std::string DRAW_RECTANGLE = "/h height def\n\
 /w width def\n\
 /x x_coord def\n\
