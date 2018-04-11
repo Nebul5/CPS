@@ -13,12 +13,12 @@
 namespace cps {
 class Layered : public Shape {
 private:
-  std::vector<ShapePtr> shapes;
+  std::vector<ShapePtr> layered_shapes;
 
 public:
   Layered() = default;
   ~Layered() = default;
-  Layered(std::initializer_list<ShapePtr> layered_shapes);
+  Layered(std::initializer_list<ShapePtr> shapes);
   virtual std::string toPostScript() override;
 
 private:
