@@ -20,9 +20,8 @@ public:
   Vertical() = default;
   ~Vertical() = default;
   Vertical(std::initializer_list<std::shared_ptr<Shape>> shapes);
-  std::string toPostScript();
+  virtual std::string toPostScript() override;
   const std::vector<std::shared_ptr<Shape>> getShapes();
-  const BoundBoxType getBoundBox();
 
 private:
   void assembleShapes();

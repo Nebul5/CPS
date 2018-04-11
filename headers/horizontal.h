@@ -20,7 +20,7 @@ public:
   Horizontal() = default;
   ~Horizontal() = default;
   Horizontal(std::initializer_list<ShapePtr> shapes);
-  std::string toPostScript();
+  virtual std::string toPostScript() override;
 
 private:
   void assembleShapes();

@@ -60,4 +60,3 @@ string Vertical::toPostScript() {
 const vector<shared_ptr<Shape>> Vertical::getShapes() {
   return vertical_shapes;
 }
-const Vertical::BoundBoxType Vertical::getBoundBox() { return bound_box; }

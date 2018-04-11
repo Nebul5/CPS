@@ -21,7 +21,7 @@ public:
   ~Rotated() = default;
   Rotated(ShapePtr shape, int angle);
   ShapePtr getShape();
-  std::string toPostScript();
+  virtual std::string toPostScript() override;
 
 private:
   void getRotationStr();

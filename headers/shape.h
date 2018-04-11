@@ -43,7 +43,7 @@ public:
 
   BoundBoxType getBoundBox();
   PointType getCurrentPoint();
-  BoundBoxType getBoundBox() const;
+  const BoundBoxType getBoundBox() const;
   PointType getCurrentPoint() const;
 
   void setBoundBox(BoundBoxType bound_box);

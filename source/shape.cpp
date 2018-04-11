@@ -24,7 +24,7 @@ void Shape::horizontal() {}
 
 Shape::BoundBoxType Shape::getBoundBox() { return bound_box; }
 Shape::PointType Shape::getCurrentPoint() { return current_point; }
-Shape::BoundBoxType Shape::getBoundBox() const { return bound_box; }
+const Shape::BoundBoxType Shape::getBoundBox() const { return bound_box; }
 Shape::PointType Shape::getCurrentPoint() const { return current_point; }
 
 void Shape::setBoundBox(BoundBoxType bound_box) { bound_box = bound_box; }
