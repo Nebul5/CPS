@@ -2,3 +2,4 @@ catch.hpp
 *.gch
 *.o
 *.out
+tests/test*.ps
