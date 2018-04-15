@@ -14,13 +14,11 @@ using std::swap;
 Shape::Shape(BoundBoxType bound_box, PointType current_point)
     : bound_box(bound_box), current_point(current_point) {}
 
-void Shape::layer() {}
 void Shape::scale(double x_scale, double y_scale) {}
 void Shape::rotate(int rotation_Angle) {}
 void Shape::vertical(const initializer_list<Shape> &list) {
   bound_box = maxDimensions(list);
 }
-void Shape::horizontal() {}
 
 Shape::BoundBoxType Shape::getBoundBox() { return bound_box; }
 Shape::PointType Shape::getCurrentPoint() { return current_point; }
@@ -52,6 +50,7 @@ void Shape::rotateBoundBox(int angle) {
 }
 
 Shape::PointType Shape::getStartingPoint() { return starting_point; }
+Shape::PointType Shape::getStartingPoint() const { return starting_point; }
 // Program constructor, takes a string of source code
 Program::Program(std::string source) { interpret(source); }
 

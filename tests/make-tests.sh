@@ -1,4 +1,4 @@
-g++ --std=c++14 -o tests.out ../test-main.o test-circle.cpp test-rotated.cpp\
+g++ --std=c++14 -o tests.out test-main.cpp test-circle.cpp test-rotated.cpp\
       test-polygon.cpp test-rectangle.cpp test-scaled.cpp test-vertical.cpp\
       test-horizontal.cpp test-spacer.cpp test-layered.cpp catch.hpp \
     ../source/circle.cpp ../source/shape.cpp \

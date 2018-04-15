@@ -27,8 +27,6 @@ public:
   Polygon(BoundBoxType bound_Box, PointType current_Point, int number_sides,
           int side_length);
   virtual void rotate(int rotation_angle) override;
-  virtual void horizontal() override;
-  virtual void vertical(const std::initializer_list<Shape> &list) override;
   virtual std::string toPostScript() override;
 
 public:

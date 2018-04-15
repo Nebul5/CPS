@@ -18,10 +18,6 @@ Circle::Circle(int radius, BoundBoxType bound_box, PointType current_point)
 
 void Circle::rotate(int rotation_angle) { rotateBoundBox(rotation_angle); }
 
-void Circle::horizontal() {}
-
-void Circle::vertical(const initializer_list<Shape> &list) {}
-
 std::string Circle::toPostScript() {
   string ps_circle = DRAW_CIRCLE;
   ps_circle.replace(ps_circle.find(x_coord_str), x_coord_str.length(),

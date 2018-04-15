@@ -30,10 +30,6 @@ void Polygon::rotate(int rotation_angle) {
   rotateBoundBox(rotation_angle);
 }
 
-void Polygon::horizontal() {}
-
-void Polygon::vertical(const initializer_list<Shape> &list) {}
-
 string Polygon::toPostScript() {
   string ps_polygon = DRAW_POLYGON;
   ps_polygon.replace(ps_polygon.find(x_coord_str), x_coord_str.length(),
@@ -80,20 +76,18 @@ void Polygon::rotateStartingPoint(int angle) {
   double y = current_point.second;
 
   double apothem = y - ys;
-	double halfSide = x - xs;
+  double halfSide = x - xs;
 
-	if (angle == 90) {
-		starting_point.first = x + apothem;
-		starting_point.second = y - halfSide;
-	}
-	else if (angle == 180) {
-		starting_point.first = x - apothem;
-		starting_point.second = y + halfSide;
-	}
-	else if (angle == 270) {
-		starting_point.first = x + halfSide;
-		starting_point.second = y + apothem;
-	}
+  if (angle == 90) {
+    starting_point.first = x + apothem;
+    starting_point.second = y - halfSide;
+  } else if (angle == 180) {
+    starting_point.first = x - apothem;
+    starting_point.second = y + halfSide;
+  } else if (angle == 270) {
+    starting_point.first = x + halfSide;
+    starting_point.second = y + apothem;
+  }
 }
 
 /*Polygon cps::getPolygon(Shape::PointType current_point,

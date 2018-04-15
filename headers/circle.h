@@ -24,8 +24,6 @@ public:
   ~Circle() = default;
   Circle(int radius, BoundBoxType bound_box, PointType current_point);
   virtual void rotate(int rotation_angle) override;
-  virtual void horizontal() override;
-  virtual void vertical(const std::initializer_list<Shape> &list) override;
   virtual std::string toPostScript() override;
 
 public:

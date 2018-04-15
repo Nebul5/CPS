@@ -32,23 +32,24 @@ public:
   ~Shape() = default;
   Shape(BoundBoxType bound_box, PointType current_point);
   void scale(double x_scale, double y_scale);
+  void vertical(const std::initializer_list<Shape> &list);
   virtual void rotate(int rotation_Angle);
-  virtual void vertical(const std::initializer_list<Shape> &list);
-  virtual void horizontal();
-  void layer();
 
   BoundBoxType maxDimensions(const std::initializer_list<Shape> &list);
 
   virtual std::string toPostScript();
 
   BoundBoxType getBoundBox();
-  PointType getCurrentPoint();
   const BoundBoxType getBoundBox() const;
+
+  PointType getCurrentPoint();
   PointType getCurrentPoint() const;
 
-  void setBoundBox(BoundBoxType bound_box);
-  virtual void setCurrentPoint(PointType new_point);
   PointType getStartingPoint();
+  PointType getStartingPoint() const;
+
+  virtual void setCurrentPoint(PointType new_point);
+  void setBoundBox(BoundBoxType bound_box);
 
   void rotateBoundBox(int angle);
 };

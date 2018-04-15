@@ -19,10 +19,6 @@ Rectangle::Rectangle(BoundBoxType bound_box, PointType current_point)
 
 void Rectangle::rotate(int rotation_angle) { rotateBoundBox(rotation_angle); }
 
-void Rectangle::horizontal() {}
-
-void Rectangle::vertical(const initializer_list<Shape> &list) {}
-
 string Rectangle::toPostScript() {
   string ps_rectangle = DRAW_RECTANGLE;
   ps_rectangle.replace(ps_rectangle.find(x_coord_str), x_coord_str.length(),
