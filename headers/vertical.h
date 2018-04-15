@@ -2,6 +2,8 @@
 #define VERTICAL_H
 #include "shape.h"
 // cps::Shape
+#include "multishape.h"
+// cps::MultiShape
 #include <initializer_list>
 // std::initializer_list
 #include <vector>
@@ -12,20 +14,16 @@
 // std::pair
 
 namespace cps {
-class Vertical : public Shape {
-private:
-  std::vector<ShapePtr> vertical_shapes;
-
+class Vertical : public MultiShape {
 public:
   Vertical() = default;
   ~Vertical() = default;
-  Vertical(std::initializer_list<std::shared_ptr<Shape>> shapes);
-  virtual std::string toPostScript() override;
-  const std::vector<std::shared_ptr<Shape>> getShapes();
+  Vertical(std::initializer_list<ShapePtr> shapes);
 
-private:
-  void assembleShapes();
-  int getNextYCoordinate(int i);
+protected:
+  virtual PointType findNextCurrentPoint(int i) override;
+  virtual void getBoundBoxDimensionInLoop(int i) override;
+  virtual void getBoundBoxDimension() override;
 };
 } // namespace cps
 #endif

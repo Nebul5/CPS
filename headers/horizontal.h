@@ -2,6 +2,8 @@
 #define HORIZONTAL_H
 #include "shape.h"
 // cps::Shape
+#include "multishape.h"
+// cps::MultiShape
 
 #include <string>
 // std::string
@@ -11,20 +13,16 @@
 // std::initializer_list
 
 namespace cps {
-class Horizontal : public Shape {
-public:
-private:
-  std::vector<ShapePtr> horizontal_shapes;
-
+class Horizontal : public MultiShape {
 public:
   Horizontal() = default;
   ~Horizontal() = default;
   Horizontal(std::initializer_list<ShapePtr> shapes);
-  virtual std::string toPostScript() override;
 
-private:
-  void assembleShapes();
-  int getNextXCoordinate(int i);
+protected:
+  virtual PointType findNextCurrentPoint(int i) override;
+  virtual void getBoundBoxDimensionInLoop(int i) override;
+  virtual void getBoundBoxDimension() override;
 };
 } // namespace cps
 #endif
