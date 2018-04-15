@@ -1,7 +1,5 @@
 #ifndef LAYERED_H
 #define LAYERED_H
-#include "shape.h"
-// cps::Shape
 #include "multishape.h"
 // cps::MultiShape
 

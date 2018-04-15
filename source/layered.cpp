@@ -1,5 +1,3 @@
-#include "../headers/shape.h"
-using cps::Shape;
 #include "../headers/multishape.h"
 using cps::MultiShape;
 #include "../headers/layered.h"
@@ -26,16 +24,3 @@ void Layered::getBoundBoxDimensionInLoop(int i) {
   bound_box.first = max(shapes[i]->getBoundBox().first, bound_box.first);
   bound_box.second = max(shapes[i]->getBoundBox().second, bound_box.second);
 }
-/*
-void Layered::assembleShapes() {
-  current_point = layered_shapes[0]->getCurrentPoint();
-  double width = 0;
-  double height = 0;
-  for (auto i = 1; i < layered_shapes.size(); ++i) {
-    layered_shapes[i]->setCurrentPoint(current_point);
-    width = max(width, layered_shapes[i]->getBoundBox().first);
-    height = max(height, layered_shapes[i]->getBoundBox().second);
-  }
-  bound_box = make_pair(width, height);
-}
-*/

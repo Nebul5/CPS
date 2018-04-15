@@ -1,7 +1,5 @@
 #ifndef HORIZONTAL_H
 #define HORIZONTAL_H
-#include "shape.h"
-// cps::Shape
 #include "multishape.h"
 // cps::MultiShape
 

@@ -1,5 +1,3 @@
-#include "../headers/shape.h"
-using cps::Shape;
 #include "../headers/horizontal.h"
 using cps::Horizontal;
 #include "../headers/multishape.h"

@@ -1,7 +1,5 @@
 #ifndef VERTICAL_H
 #define VERTICAL_H
-#include "shape.h"
-// cps::Shape
 #include "multishape.h"
 // cps::MultiShape
 #include <initializer_list>
