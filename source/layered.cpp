@@ -1,5 +1,7 @@
 #include "../headers/shape.h"
 using cps::Shape;
+#include "../headers/multishape.h"
+using cps::MultiShape;
 #include "../headers/layered.h"
 using cps::Layered;
 
@@ -14,11 +16,17 @@ using std::make_pair;
 #include <vector>
 using std::vector;
 
-Layered::Layered(initializer_list<ShapePtr> shapes) {
-  layered_shapes = shapes;
+Layered::Layered(initializer_list<ShapePtr> shapes) : MultiShape(shapes) {
   assembleShapes();
 }
-
+Layered::PointType Layered::findNextCurrentPoint(int i) {
+  return current_point;
+}
+void Layered::getBoundBoxDimensionInLoop(int i) {
+  bound_box.first = max(shapes[i]->getBoundBox().first, bound_box.first);
+  bound_box.second = max(shapes[i]->getBoundBox().second, bound_box.second);
+}
+/*
 void Layered::assembleShapes() {
   current_point = layered_shapes[0]->getCurrentPoint();
   double width = 0;
@@ -30,11 +38,4 @@ void Layered::assembleShapes() {
   }
   bound_box = make_pair(width, height);
 }
-
-string Layered::toPostScript() {
-  string layered_ps_string;
-  for (int i = 0; i < layered_shapes.size(); ++i) {
-    layered_ps_string += layered_shapes[i]->toPostScript();
-  }
-  return layered_ps_string;
-}
+*/
