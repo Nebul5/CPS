@@ -177,8 +177,7 @@ Mat4 makePerspective(double fieldOfView, double aspect, double near, double far)
 
 // Shape
 struct Shape {
-	std::string type;
-	double x, y;
+	double top;
 	double height; // From center
 	double width; // From center
 	double radius;
@@ -191,20 +190,29 @@ struct Shape {
 // Polygon
 struct Polygon : Shape {
 	Polygon(int n, double len) {
-		type = "Polygon";
 
 		double PI = 3.14159;
-		double theta = 2 * PI / n;
-		radius = (PI - theta)*len / (2 * sin(theta));
+		double theta = 2.0 * PI / n;
+		double halfAngle = theta * 0.5;
+		radius = len / (2.0 * sin(halfAngle));
 
-		double firstAngle = (theta / 2) + (PI * 3/2 ); // Start here to make sure the first edge is || to the bottom bound
+		double firstAngle = (PI * 3/2 ) - halfAngle; // Start here to make sure the first edge is || to the bottom bound
 		Vec4 bottom1(radius*cos(firstAngle), radius*sin(firstAngle), 1.0, 1.0);
 		Vec4 bottom2(radius*cos(firstAngle+theta), radius*sin(firstAngle+theta), 1.0, 1.0);
 		points.push_back(bottom1);
 		points.push_back(bottom2);
 
-		height = bottom1.y;
+		height = -bottom1.y;
 		width = bottom2.x;
+
+		if (n % 2) {
+			top = radius;
+		}
+		else {
+			top = height;
+		}
+		
+
 		for (auto i = 2; i < n; i++) {
 			Vec4 newVec(radius*cos(firstAngle + (i*theta)), radius*sin(firstAngle + (i*theta)), 1.0, 1.0);
 			width = std::max(width, newVec.x);
@@ -232,13 +240,14 @@ struct Polygon : Shape {
 // Circle
 struct Circle : Shape {
 	Circle(double r) {
+		top = r;
 		height = r;
 		width = r;
 	}
 
 	std::string DRAW(Mat4 transform) {
-		Vec4 start(width, 0.0, 0.0, 1.0);
-		Vec4 c(0.0, 0.0, 0.0, 1.0);
+		Vec4 start(width, 0.0, 1.0, 1.0);
+		Vec4 c(0.0, 0.0, 1.0, 1.0);
 		start = transform * start;
 		c = transform * c;
 		return std::to_string(c.x) + " " + std::to_string(c.y) + " " + std::to_string(start.x-c.x) + " 0 360 arc closepath stroke ";
@@ -250,13 +259,14 @@ struct Circle : Shape {
 // Rectangle
 struct Rectangle : Shape {
 	Rectangle(double w, double h) {
-		height = h;
-		width = w;
+		top = h * 0.5;
+		height = h * 0.5;
+		width = w * 0.5;
 
-		Vec4 upperLeft(-width, height, 0.0, 1.0);
-		Vec4 lowerLeft(-width, -height, 0.0, 1.0);
-		Vec4 lowerRight(width, -height, 0.0, 1.0);
-		Vec4 upperRight(width, height, 0.0, 1.0);
+		Vec4 upperLeft(-width, height, 1.0, 1.0);
+		Vec4 lowerLeft(-width, -height, 1.0, 1.0);
+		Vec4 lowerRight(width, -height, 1.0, 1.0);
+		Vec4 upperRight(width, height, 1.0, 1.0);
 
 		points.push_back(upperLeft);
 		points.push_back(lowerLeft);
@@ -265,15 +275,11 @@ struct Rectangle : Shape {
 	}
 
 	std::string DRAW(Mat4 transform) {
-		Vec4 start(width, 0.0, 0.0, 1.0);
-		Vec4 c(0.0, 0.0, 0.0, 1.0);
-		start = transform * start;
-		c = transform * c;
 
-		auto v = transform * points[0];
+		Vec4 v = transform * points[0];
 		std::string out = std::to_string(v.x) +" " +std::to_string(v.y) +" moveto ";
 		for (int i = 1; i < points.size(); i++) {
-			auto v = transform * points[i];
+			v = transform * points[i];
 			out += std::to_string(v.x);
 			out += " ";
 			out += std::to_string(v.y);
@@ -290,8 +296,9 @@ struct Rectangle : Shape {
 // Spacer
 struct Spacer : Shape {
 	Spacer(double w, double h) {
-		height = h;
-		width = w;
+		top = h * 0.5;
+		height = h*0.5;
+		width = w*0.5;
 	}
 
 	std::string DRAW(Mat4 transform) {
@@ -308,11 +315,11 @@ struct Sphere : Shape {
 	Vec4 color;
 	double radius;
 	Sphere(double r, Vec4 c, Vec4 l) {
-		type = "Sphere";
 		color = c;
 		color.makeUnit();
 		lightVec = l;
 		lightVec.makeUnit();
+		top = r;
 		height = r;
 		width = r;
 
@@ -459,6 +466,14 @@ struct Layered : Shape {
 	std::vector<std::shared_ptr<Shape>> shapes;
 	Layered(std::vector<std::shared_ptr<Shape>> s) {
 		shapes = s;
+		width = 0.0;
+		height = 0.0;
+		top = 0.0;
+		for (auto i = 0; i < shapes.size(); i++) {
+			top = std::max(top, shapes[i]->top);
+			width = std::max(width, shapes[i]->width);
+			height = std::max(height, shapes[i]->height);
+		}
 	}
 
 	std::string DRAW(Mat4 transform);
@@ -471,6 +486,14 @@ struct Horizontal : Shape {
 	std::vector<std::shared_ptr<Shape>> shapes;
 	Horizontal(std::vector<std::shared_ptr<Shape>> s) {
 		shapes = s;
+		width = 0.0;
+		height = 0.0;
+		top = 0.0;
+		for (auto i = 0; i < shapes.size(); i++) {
+			top = std::max(top, shapes[i]->top);
+			width += shapes[i]->width*2.0;
+			height = std::max(height, shapes[i]->height);
+		}
 	}
 
 	std::string DRAW(Mat4 transform);
@@ -483,6 +506,13 @@ struct Vertical : Shape {
 	std::vector<std::shared_ptr<Shape>> shapes;
 	Vertical(std::vector<std::shared_ptr<Shape>> s) {
 		shapes = s;
+		width = shapes[0]->width;
+		height = shapes[0]->height;
+		top = shapes[0]->top;
+		for (auto i = 1; i < shapes.size(); i++) {
+			top += (shapes[i]->top + shapes[i]->height);
+			width = std::max(width, shapes[i]->width);
+		}
 	}
 
 	std::string DRAW(Mat4 transform);

@@ -4,7 +4,7 @@
 
 int main() {
 	// Example
-	Program p("myCPSProg.cps");
-	p.compile("PSTest");
+	Program p("CPSProgTwo.cps");
+	p.compile("PSTestTwo");
 	return 0;
 }

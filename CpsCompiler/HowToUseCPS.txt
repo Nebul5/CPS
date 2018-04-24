@@ -9,7 +9,23 @@ CPS COMMANDS
 
 Polygon <Name> <Sides> <Side_Length> - Creates a polygon bound to Name with Sides number of sides that are all length Side_Length. The bottom side is always created parallel to the X axis.
 
+Square <Name> <Side_Length> - Creates a square bound to the name with the given side length.
+
+Circle <Name> <Radius> - Creates a circle bound to the name with the given radius.
+
+Triangle <Name> <Side_Length> - Creates a triangle bound to the name with the given side length.
+
 Sphere <Name> <Radius> <R> <G> <B> <X_Light> <Y_Light> <Z_Light> - Creates a sphere bound to Name, with RGB color R, G, B, that is shaded with white light originating at X, Y, and Z.
+
+Spacer <Name> <Width> <Height> - Creates an invisible rectangle bound to the name with the given dimensions.
+
+Rectangle <Name> <Width> <Height> - Creates a rectangle bound to the given name with the specified dimensions.
+
+Layered <Name> <Shape_1> <Shape_2> ... end - Creates a compound shape out of the list of named shapes truncated with the "end" keyword. When drawn shapes 1 to N are drawn from first to last overlapping.
+
+Horizontal <Name> <Shape_1> <Shape_2> ... end - Creates a compound shape out of the list of named shapes truncated with the "end" keyword. When drawn shapes 1 to N are drawn from first to last horizontally, edge to edge, based on their bounding boxes.
+
+Vertical <Name> <Shape_1> <Shape_2> ... end - Creates a compound shape out of the list of named shapes truncated with the "end" keyword. When drawn shapes 1 to N are drawn from first to last vertically, edge to edge, based on their bounding boxes.
 
 move <X> <Y> - Shifts the current draw location by X and Y.
 

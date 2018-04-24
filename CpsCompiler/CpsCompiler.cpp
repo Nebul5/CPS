@@ -192,13 +192,12 @@ std::string Vertical::DRAW(Mat4 transform) {
 	visitor drawVisitor;
 	std::string out = "";
 	out += shapes[0]->draw(transform, drawVisitor);
-
-	Mat4 move = transform * makeTranslation(0.0, shapes[0]->height, 0.0);
+	Mat4 move = transform * makeTranslation(0.0, shapes[0]->top, 0.0);
 	out += shapes[0]->draw(transform, drawVisitor);
 	for (auto i = 1; i < shapes.size(); i++) {
-		move = move * makeTranslation(0.0, shapes[0]->height, 0.0);
+		move = move * makeTranslation(0.0, shapes[i]->height, 0.0);
 		out += shapes[i]->draw(move, drawVisitor);
-		move = move * makeTranslation(0.0, shapes[0]->height, 0.0);
+		move = move * makeTranslation(0.0, shapes[i]->top, 0.0);
 	}
 	return out;
 }
