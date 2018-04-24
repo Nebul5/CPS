@@ -90,6 +90,17 @@ struct Vec4 {
 struct Mat4 {
 	std::vector<double> m;
 
+	Mat4() {
+		double newMat[16] = {
+			1, 0, 0, 0,
+			0, 1, 0, 0,
+			0, 0, 1, 0,
+			0, 0, 0, 1 };
+
+		std::vector<double> newMatVec(newMat, newMat + 16);
+		m = newMatVec;
+	}
+
 	Mat4(std::vector<double> mat) : m(mat) {};
 
 	double operator[](unsigned int index) const {
@@ -108,7 +119,7 @@ struct Mat4 {
 		return temp;
 	}
 
-	Vec4 operator*(Vec4 & v) {
+	Vec4 operator*(const Vec4 & v) const {
 		double x, y, z, w;
 		x = v.x * m[0] + v.y * m[4] + v.z * m[8] + v.w * m[12];
 		y = v.x * m[1] + v.y * m[5] + v.z * m[9] + v.w * m[13];
@@ -119,7 +130,7 @@ struct Mat4 {
 		return newVec;
 	}
 
-	Mat4 operator*(Mat4 & v) {
+	Mat4 operator*(const Mat4 & v) const {
 		std::vector<double> newMatVec(16, 0.0);
 		for (auto i = 0; i< 16; i += 4) {
 			newMatVec[i+0] = v[i] * m[0] + v[i + 1] * m[4] + v[i + 2] * m[8] + v[i + 3] * m[12];
@@ -443,6 +454,42 @@ struct Sphere : Shape {
 	std::string draw(Mat4 transform, class visitor &v);
 };
 
+// Layered
+struct Layered : Shape {
+	std::vector<std::shared_ptr<Shape>> shapes;
+	Layered(std::vector<std::shared_ptr<Shape>> s) {
+		shapes = s;
+	}
+
+	std::string DRAW(Mat4 transform);
+
+	std::string draw(Mat4 transform, class visitor &v);
+};
+
+// Horizontal
+struct Horizontal : Shape {
+	std::vector<std::shared_ptr<Shape>> shapes;
+	Horizontal(std::vector<std::shared_ptr<Shape>> s) {
+		shapes = s;
+	}
+
+	std::string DRAW(Mat4 transform);
+
+	std::string draw(Mat4 transform, class visitor &v);
+};
+
+// Vertical
+struct Vertical : Shape {
+	std::vector<std::shared_ptr<Shape>> shapes;
+	Vertical(std::vector<std::shared_ptr<Shape>> s) {
+		shapes = s;
+	}
+
+	std::string DRAW(Mat4 transform);
+
+	std::string draw(Mat4 transform, class visitor &v);
+};
+
 // visitor
 class visitor {
 public:
@@ -451,6 +498,9 @@ public:
 	virtual std::string draw(Mat4 t, Circle* p);
 	virtual std::string draw(Mat4 t, Rectangle* p);
 	virtual std::string draw(Mat4 t, Spacer* p);
+	virtual std::string draw(Mat4 t, Layered* p);
+	virtual std::string draw(Mat4 t, Horizontal* p);
+	virtual std::string draw(Mat4 t, Vertical* p);
 };
 
 // Lexer stores source code as a sequence of strings delimited by whitespace

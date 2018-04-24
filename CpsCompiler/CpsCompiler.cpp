@@ -88,6 +88,8 @@ Mat4 makePerspective(double fieldOfView, double aspect, double near, double far)
 	return pers;
 }
 
+
+
 // ************************************* //
 //         END Mat4 functions            //
 // ************************************* //
@@ -113,6 +115,18 @@ std::string visitor::draw(Mat4 t, Spacer* p) {
 	return p->DRAW(t);
 }
 
+std::string visitor::draw(Mat4 t, Layered* p) {
+	return p->DRAW(t);
+}
+
+std::string visitor::draw(Mat4 t, Horizontal* p) {
+	return p->DRAW(t);
+}
+
+std::string visitor::draw(Mat4 t, Vertical* p) {
+	return p->DRAW(t);
+}
+
 std::string Polygon::draw(Mat4 transform, class visitor &v) {
 	return v.draw(transform, this);
 }
@@ -131,6 +145,62 @@ std::string Rectangle::draw(Mat4 transform, class visitor &v) {
 
 std::string Spacer::draw(Mat4 transform, class visitor &v) {
 	return v.draw(transform, this);
+}
+
+std::string Layered::draw(Mat4 transform, class visitor &v) {
+	return v.draw(transform, this);
+}
+
+std::string Horizontal::draw(Mat4 transform, class visitor &v) {
+	return v.draw(transform, this);
+}
+
+std::string Vertical::draw(Mat4 transform, class visitor &v) {
+	return v.draw(transform, this);
+}
+
+
+// Draw function for Layered
+std::string Layered::DRAW(Mat4 transform) {
+	visitor drawVisitor;
+	std::string out = "";
+	for (auto i = 0; i < shapes.size(); i++) {
+		out += shapes[i]->draw(transform, drawVisitor);
+	}
+	return out;
+}
+
+
+// Draw function for Horizontal
+std::string Horizontal::DRAW(Mat4 transform) {
+	visitor drawVisitor;
+	std::string out = "";
+	out += shapes[0]->draw(transform, drawVisitor);
+
+	Mat4 move = transform * makeTranslation(shapes[0]->width, 0.0, 0.0);
+	out += shapes[0]->draw(transform, drawVisitor);
+	for (auto i = 1; i < shapes.size(); i++) {
+		move = move * makeTranslation(shapes[i]->width, 0.0, 0.0);
+		out += shapes[i]->draw(move, drawVisitor);
+		move = move * makeTranslation(shapes[i]->width, 0.0, 0.0);
+	}
+	return out;
+}
+
+// Draw function for Vertical
+std::string Vertical::DRAW(Mat4 transform) {
+	visitor drawVisitor;
+	std::string out = "";
+	out += shapes[0]->draw(transform, drawVisitor);
+
+	Mat4 move = transform * makeTranslation(0.0, shapes[0]->height, 0.0);
+	out += shapes[0]->draw(transform, drawVisitor);
+	for (auto i = 1; i < shapes.size(); i++) {
+		move = move * makeTranslation(0.0, shapes[0]->height, 0.0);
+		out += shapes[i]->draw(move, drawVisitor);
+		move = move * makeTranslation(0.0, shapes[0]->height, 0.0);
+	}
+	return out;
 }
 
 // Program constructor, takes a string of source code
@@ -256,6 +326,42 @@ void Program::interpret() {
 			double arg1 = Code.num();
 			Polygon newPoly(4, arg1);
 			Objects[token] = std::make_shared<Polygon>(newPoly);
+		}
+		else if (token == "Layered") {
+			token = Code.next();
+			std::string name = token;
+			token = Code.next();
+			std::vector<std::shared_ptr<Shape>> shapes;
+			while (token != "end") {
+				shapes.push_back(Objects[token]);
+				token = Code.next();
+			}
+			Layered newLayer(shapes);
+			Objects[name] = std::make_shared<Layered>(newLayer);
+		}
+		else if (token == "Horizontal") {
+			token = Code.next();
+			std::string name = token;
+			token = Code.next();
+			std::vector<std::shared_ptr<Shape>> shapes;
+			while (token != "end") {
+				shapes.push_back(Objects[token]);
+				token = Code.next();
+			}
+			Horizontal newHoriz(shapes);
+			Objects[name] = std::make_shared<Horizontal>(newHoriz);
+		}
+		else if (token == "Vertical") {
+			token = Code.next();
+			std::string name = token;
+			token = Code.next();
+			std::vector<std::shared_ptr<Shape>> shapes;
+			while (token != "end") {
+				shapes.push_back(Objects[token]);
+				token = Code.next();
+			}
+			Vertical newVert(shapes);
+			Objects[name] = std::make_shared<Vertical>(newVert);
 		}
 		token = Code.next();
 	}
