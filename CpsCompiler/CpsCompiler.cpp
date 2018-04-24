@@ -92,6 +92,38 @@ Mat4 makePerspective(double fieldOfView, double aspect, double near, double far)
 //         END Mat4 functions            //
 // ************************************* //
 
+// Visitor fns
+std::string visitor::draw(Mat4 t, Polygon* p) {
+	return p->DRAW(t);
+}
+
+std::string visitor::draw(Mat4 t, Circle* p) {
+	return p->DRAW(t);
+}
+
+std::string visitor::draw(Mat4 t, Sphere* p) {
+	return p->DRAW(t);
+}
+
+std::string visitor::draw(Mat4 t, Rectangle* p) {
+	return p->DRAW(t);
+}
+
+std::string Polygon::draw(Mat4 transform, class visitor &v) {
+	return v.draw(transform, this);
+}
+
+std::string Circle::draw(Mat4 transform, class visitor &v) {
+	return v.draw(transform, this);
+}
+
+std::string Sphere::draw(Mat4 transform, class visitor &v) {
+	return v.draw(transform, this);
+}
+
+std::string Rectangle::draw(Mat4 transform, class visitor &v) {
+	return v.draw(transform, this);
+}
 
 // Program constructor, takes a string of source code
 Program::Program(std::string source) { 
@@ -131,7 +163,18 @@ void Program::interpret() {
 	std::string token = Code.next();
 	while(token!="EOF"){
 		if (token == "draw") {
-			parseShape();
+			token = Code.next();
+			Mat4 t = makeIdentity();
+			for (auto i = 0; i < transformations.size(); i++) {
+				t = t * transformations[i];
+			}
+			Lexer shapeLex;
+			shapeLex.Lex(Objects[token]->draw(t, drawVisitor));
+			std::string term = shapeLex.next();
+			while (term != "EOF") {
+				Parsed.push_back(term);
+				term = shapeLex.next();
+			}
 		}
 		else if (token == "move") {
 			double xTrans = Code.num();
@@ -154,25 +197,23 @@ void Program::interpret() {
 			transformations.pop_back();
 		}
 		else if (token == "Circle") {
-			// TODO
-
-			// token = Code.next();
-			// double arg1 = Code.num();
-			// Circle * newCirc = new Circle(arg1); // CAUTION: functions use a call stack, calling Code.num() here will reverse the order of arguments
-			// Objects[token] = newCirc;
-
-			// Example ^^ See above ^^
+			token = Code.next();
+			double arg1 = Code.num();
+			Circle newCirc(arg1);
+			Objects[token] = std::make_shared<Circle>(newCirc);
 		}
 		else if (token == "Rectangle") {
 			token = Code.next();
-			// TODO
+			double arg1 = Code.num();
+			Circle newCirc(arg1);
+			Objects[token] = std::make_shared<Circle>(newCirc);
 		}
 		else if (token == "Polygon") {
 			token = Code.next();
 			double arg1 = Code.num();
 			double arg2 = Code.num();
-			Polygon * newPoly = new Polygon(arg1, arg2);
-			Objects[token] = newPoly;
+			Polygon newPoly(arg1, arg2);
+			Objects[token] = std::make_shared<Polygon>(newPoly);
 		}
 		else if (token == "Sphere") {
 			token = Code.next();
@@ -185,8 +226,8 @@ void Program::interpret() {
 			double z = Code.num();
 			Vec4 color(r, g, b, 1.0);
 			Vec4 lightDir(x, y, z, 1.0);
-			Sphere * newSph = new Sphere(radius, color, lightDir);
-			Objects[token] = newSph;
+			Sphere newSph(radius, color, lightDir);
+			Objects[token] = std::make_shared<Sphere>(newSph);
 		}
 		else if (token == "Spacer") {
 			token = Code.next();
@@ -211,88 +252,3 @@ void Program::interpret() {
 	Postscript += "\nshowpage";
 }
 
-// parseShape, state handler
-//		NOTE: Doesn't quite work the way the assignment specified
-void Program::parseShape() {
-	std::string token = Code.next();
-	if (token == "layered") {
-		while (token != "end") {
-			parseShape();
-			token = Code.peek();
-		}
-	}
-	else if (token == "vertical") {
-		parseVertical();
-	}
-	else if (token == "horizontal") {
-		parseHorizontal();
-	}
-	else {
-		Mat4 t = makeIdentity();
-		for (auto i = 0; i < transformations.size(); i++) {
-			t = t * transformations[i];
-		}
-		if (Objects[token]->type == "Polygon") {
-			Lexer shapeLex;
-			shapeLex.Lex(dynamic_cast<Polygon*>(Objects[token])->draw(t));
-			std::string term = shapeLex.next();
-			while (term != "EOF") {
-				Parsed.push_back(term);
-				term = shapeLex.next();
-			}
-		}
-		else if (Objects[token]->type == "Sphere") {
-			Lexer shapeLex;
-			shapeLex.Lex(dynamic_cast<Sphere*>(Objects[token])->draw(t));
-			std::string term = shapeLex.next();
-			while (term != "EOF") {
-				Parsed.push_back(term);
-				term = shapeLex.next();
-			}
-		}
-	}
-}
-
-// parseVertical, state handler
-//		NOTE: Doesn't quite work the way the assignment specified
-void Program::parseVertical() {
-	std::string token = Code.next();
-	if (token == "end") {
-		transformations.pop_back();
-		return;
-	}
-	else {
-		Mat4 shift = makeTranslation(0, Objects[token]->bound, 0);
-		Mat4 t = makeIdentity() + shift;
-		for (auto i = 0; i < transformations.size(); i++) {
-			t = t * transformations[i];
-		}
-		if (Objects[token]->type == "Polygon") {
-			Parsed.push_back(dynamic_cast<Polygon*>(Objects[token])->draw(t));
-		}
-		transformations.push_back(shift);
-		parseVertical();
-	}
-}
-
-// ParseHorizontal, state handler
-//		NOTE: Doesn't quite work the way the assignment specified
-void Program::parseHorizontal() {
-	std::string token = Code.next();
-	if (token == "end") {
-		transformations.pop_back();
-		return;
-	}
-	else {
-		Mat4 shift = makeTranslation(Objects[token]->bound, 0, 0);
-		Mat4 t = makeIdentity() + shift;
-		for (auto i = 0; i < transformations.size(); i++) {
-			t = t * transformations[i];
-		}
-		if (Objects[token]->type == "Polygon") {
-			Parsed.push_back(dynamic_cast<Polygon*>(Objects[token])->draw(t));
-		}
-		transformations.push_back(shift);
-		parseHorizontal();
-	}
-}

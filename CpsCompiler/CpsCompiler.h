@@ -14,9 +14,11 @@
 #include <vector>
 #include <sstream>
 #include <unordered_map>
-#include <math.h>
+#include <cmath>
 #include <fstream>
 #include <iostream>
+#include <utility>
+#include <algorithm>
 
 
 // ************************************* //
@@ -166,11 +168,13 @@ Mat4 makePerspective(double fieldOfView, double aspect, double near, double far)
 struct Shape {
 	std::string type;
 	double x, y;
-	double bound;
+	double height; // From center
+	double width; // From center
 	double radius;
 	std::vector<Vec4> points;
 
-	virtual std::string draw(Mat4 transform) { return ""; }
+	virtual std::string DRAW(Mat4 transform) = 0;
+	virtual std::string draw(Mat4 transform, class visitor &v) = 0;
 };
 
 // Polygon
@@ -188,16 +192,16 @@ struct Polygon : Shape {
 		points.push_back(bottom1);
 		points.push_back(bottom2);
 
+		height = bottom1.y;
+		width = bottom2.x;
 		for (auto i = 2; i < n; i++) {
 			Vec4 newVec(radius*cos(firstAngle + (i*theta)), radius*sin(firstAngle + (i*theta)), 1.0, 1.0);
+			width = std::max(width, newVec.x);
 			points.push_back(newVec);
 		}
-
-		// Figure out distance to bound box edge from center
-		bound = sin(firstAngle)*radius;
 	}
 
-	std::string draw(Mat4 transform) {
+	std::string DRAW(Mat4 transform) {
 		Vec4 v = transform * points[0];
 		std::string out = std::to_string(v.x) + " " + std::to_string(v.y) + " moveto ";
 		for (auto i = 1; i < points.size(); i++) {
@@ -210,6 +214,44 @@ struct Polygon : Shape {
 		out += " closepath stroke ";
 		return out;
 	}
+
+	std::string draw(Mat4 transform, class visitor &v);
+};
+
+// Circle
+struct Circle : Shape {
+	Circle(double r) {
+		height = r;
+		width = r;
+	}
+
+	std::string DRAW(Mat4 transform) {
+		Vec4 start(width, 0.0, 0.0, 1.0);
+		Vec4 c(0.0, 0.0, 0.0, 1.0);
+		start = transform * start;
+		c = transform * c;
+		return std::to_string(c.x) + " " + std::to_string(c.y) + " " + std::to_string(start.x-c.x) + " 0 360 arc closepath stroke ";
+	}
+
+	std::string draw(Mat4 transform, class visitor &v);
+};
+
+// Rectangle
+struct Rectangle : Shape {
+	Rectangle(double w, double h) {
+		height = h;
+		width = w;
+	}
+
+	std::string DRAW(Mat4 transform) {
+		Vec4 start(width, 0.0, 0.0, 1.0);
+		Vec4 c(0.0, 0.0, 0.0, 1.0);
+		start = transform * start;
+		c = transform * c;
+		return std::to_string(c.x) + " " + std::to_string(c.y) + " " + std::to_string(start.x - c.x) + " 0 360 arc closepath stroke ";
+	}
+
+	std::string draw(Mat4 transform, class visitor &v);
 };
 
 // Sphere, stores a 3-dimensional sphere with build in shading
@@ -224,6 +266,8 @@ struct Sphere : Shape {
 		color.makeUnit();
 		lightVec = l;
 		lightVec.makeUnit();
+		height = r;
+		width = r;
 
 		radius = r;
 		double PI = 3.14159;
@@ -262,7 +306,7 @@ struct Sphere : Shape {
 	}
 
 	// draw the sphere with the given transformations
-	std::string draw(Mat4 transform) {
+	std::string DRAW(Mat4 transform) {
 		Vec4 v = transform * points[0];
 		Vec4 lColor(1, 1, 1, 1);
 		Vec4 camera(0, 0, 1, 1);
@@ -359,6 +403,17 @@ struct Sphere : Shape {
 		out += " 0 0 0 setrgbcolor ";
 		return out;
 	}
+
+	std::string draw(Mat4 transform, class visitor &v);
+};
+
+// visitor
+class visitor {
+public:
+	virtual std::string draw(Mat4 t, Polygon* p);
+	virtual std::string draw(Mat4 t, Sphere* p);
+	virtual std::string draw(Mat4 t, Circle* p);
+	virtual std::string draw(Mat4 t, Rectangle* p);
 };
 
 // Lexer stores source code as a sequence of strings delimited by whitespace
@@ -449,16 +504,13 @@ private:
 	std::vector<std::string> Parsed;
 	std::vector<Mat4> transformations;
 	std::string Postscript;
-	std::unordered_map<std::string, Shape*> Objects;
+	std::unordered_map<std::string, std::shared_ptr<Shape>> Objects;
 	double X, Y;
-
-	// State handlers
-	void parseShape();
-	void parseVertical();
-	void parseHorizontal();
 
 	// interpret
 	void interpret();
+
+	visitor drawVisitor;
 
 public:
   Program(std::string source);
