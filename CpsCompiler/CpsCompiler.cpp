@@ -109,6 +109,10 @@ std::string visitor::draw(Mat4 t, Rectangle* p) {
 	return p->DRAW(t);
 }
 
+std::string visitor::draw(Mat4 t, Spacer* p) {
+	return p->DRAW(t);
+}
+
 std::string Polygon::draw(Mat4 transform, class visitor &v) {
 	return v.draw(transform, this);
 }
@@ -122,6 +126,10 @@ std::string Sphere::draw(Mat4 transform, class visitor &v) {
 }
 
 std::string Rectangle::draw(Mat4 transform, class visitor &v) {
+	return v.draw(transform, this);
+}
+
+std::string Spacer::draw(Mat4 transform, class visitor &v) {
 	return v.draw(transform, this);
 }
 
@@ -232,16 +240,22 @@ void Program::interpret() {
 		}
 		else if (token == "Spacer") {
 			token = Code.next();
-			// TODO
+			double arg1 = Code.num();
+			double arg2 = Code.num();
+			Spacer newSpace(arg1, arg2);
+			Objects[token] = std::make_shared<Spacer>(newSpace);
 		}
 		else if (token == "Triangle") {
 			token = Code.next();
-			// TODO
+			double arg1 = Code.num();
+			Polygon newPoly(3, arg1);
+			Objects[token] = std::make_shared<Polygon>(newPoly);
 		}
 		else if (token == "Square") {
 			token = Code.next();
-			double size = Code.num();
-			// TODO
+			double arg1 = Code.num();
+			Polygon newPoly(4, arg1);
+			Objects[token] = std::make_shared<Polygon>(newPoly);
 		}
 		token = Code.next();
 	}

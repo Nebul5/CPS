@@ -276,6 +276,20 @@ struct Rectangle : Shape {
 	std::string draw(Mat4 transform, class visitor &v);
 };
 
+// Spacer
+struct Spacer : Shape {
+	Spacer(double w, double h) {
+		height = h;
+		width = w;
+	}
+
+	std::string DRAW(Mat4 transform) {
+		return "";
+	}
+
+	std::string draw(Mat4 transform, class visitor &v);
+};
+
 // Sphere, stores a 3-dimensional sphere with build in shading
 struct Sphere : Shape {
 	std::vector<Vec4> normals;
@@ -436,6 +450,7 @@ public:
 	virtual std::string draw(Mat4 t, Sphere* p);
 	virtual std::string draw(Mat4 t, Circle* p);
 	virtual std::string draw(Mat4 t, Rectangle* p);
+	virtual std::string draw(Mat4 t, Spacer* p);
 };
 
 // Lexer stores source code as a sequence of strings delimited by whitespace
