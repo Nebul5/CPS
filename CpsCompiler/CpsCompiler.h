@@ -241,6 +241,16 @@ struct Rectangle : Shape {
 	Rectangle(double w, double h) {
 		height = h;
 		width = w;
+
+		Vec4 upperLeft(-width, height, 0.0, 1.0);
+		Vec4 lowerLeft(-width, -height, 0.0, 1.0);
+		Vec4 lowerRight(width, -height, 0.0, 1.0);
+		Vec4 upperRight(width, height, 0.0, 1.0);
+
+		points.push_back(upperLeft);
+		points.push_back(lowerLeft);
+		points.push_back(lowerRight);
+		points.push_back(upperRight);
 	}
 
 	std::string DRAW(Mat4 transform) {
@@ -248,7 +258,19 @@ struct Rectangle : Shape {
 		Vec4 c(0.0, 0.0, 0.0, 1.0);
 		start = transform * start;
 		c = transform * c;
-		return std::to_string(c.x) + " " + std::to_string(c.y) + " " + std::to_string(start.x - c.x) + " 0 360 arc closepath stroke ";
+
+		auto v = transform * points[0];
+		std::string out = std::to_string(v.x) +" " +std::to_string(v.y) +" moveto ";
+		for (int i = 1; i < points.size(); i++) {
+			auto v = transform * points[i];
+			out += std::to_string(v.x);
+			out += " ";
+			out += std::to_string(v.y);
+			out += " lineto ";
+		}
+		out += " closepath stroke ";
+
+		return out;
 	}
 
 	std::string draw(Mat4 transform, class visitor &v);

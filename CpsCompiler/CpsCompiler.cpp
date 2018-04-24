@@ -205,8 +205,9 @@ void Program::interpret() {
 		else if (token == "Rectangle") {
 			token = Code.next();
 			double arg1 = Code.num();
-			Circle newCirc(arg1);
-			Objects[token] = std::make_shared<Circle>(newCirc);
+			double arg2 = Code.num();
+			Rectangle newRect(arg1, arg2);
+			Objects[token] = std::make_shared<Rectangle>(newRect);
 		}
 		else if (token == "Polygon") {
 			token = Code.next();
