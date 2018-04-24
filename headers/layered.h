@@ -12,9 +12,6 @@
 
 namespace cps {
 class Layered : public MultiShape {
-private:
-  std::vector<ShapePtr> layered_shapes;
-
 public:
   Layered() = default;
   ~Layered() = default;

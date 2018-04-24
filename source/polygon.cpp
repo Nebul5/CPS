@@ -89,19 +89,6 @@ void Polygon::rotateStartingPoint(int angle) {
     starting_point.second = y + apothem;
   }
 }
-
-/*Polygon cps::getPolygon(Shape::PointType current_point,
-                        int number_sides, int side_length) {
-  auto denominator = sin(PI / double(number_sides));
-  int radius = abs(ceil(double(side_length) / denominator));
-  auto bound_box = make_pair(radius, radius);
-  return Polygon(bound_box, current_point, number_sides, side_length);
-}*/
-
-/* This provide the correct Bounding Box for Regular Polygons that are not
-rotated. I have tested this with drawing works in all cases (When the Bounding
-Box is allowed to be a double) It comes from his hint in the assingments. Again
-this may not match perfectly with an integer bounding box */
 Shape::BoundBoxType cps::make_Bounding_Box(int number_sides, int side_length) {
 
   double pi = 3.14159265;
